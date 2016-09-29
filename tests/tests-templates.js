@@ -6,43 +6,67 @@ describe("Templates tests", function () {
     const Handlebars = require('handlebars');
 
     const mockedRequester = (function(){
-        var getCalledCount = 0;
+        var getCalledCount = 0,
+            lastUrl;
 
         function get(url) {
+            lastUrl = url;
             getCalledCount++;
             return Promise.resolve("<template>{{user}}</template>");
         }
-        function getAsyncCallCount() {
+
+        function getRequestCallCount() {
             return getCalledCount;
+        }
+
+        function getLastUrl() {
+            return lastUrl;
         }
 
         return {
             get,
-            getAsyncCallCount
+            getRequestCallCount,
+            getLastUrl
         }
     })();
 
     const templates = require('../public/javascripts/templates')(mockedRequester, Handlebars);
 
-    it('Expect templates to compile correctly', function () {
+    it('Expect templates to compile correctly.', function () {
         var expected = "<template>Pesho</template>";
-        return templates.compile('template', {user: "Pesho"}).then((result) => {
+
+        return templates.compile('templateName', {user: "Pesho"}).then((result) => {
                 expect(result).to.equal(expected);
+            }
+        );
+    });
+
+    it('Expect to cache templates with same name.', function () {
+        var expectedCallCount = 1;
+        templates.compile('templateName', {user: "Pesho"});
+        return templates.compile('templateName', {user: "Pesho"}).then(() => {
+                var resultCallCount = mockedRequester.getRequestCallCount();
+                expect(resultCallCount).to.equal(expectedCallCount);
             }
         );
     });
 
     it('Expect templates to compile correctly with caching.', function () {
         var expected = "<template>Pesho</template>";
-        return templates.compile('template', {user: "Pesho"}).then((result) => {
+        templates.compile('templateName', {user: "Pesho"});
+
+        return templates.compile('templateName', {user: "Pesho"}).then((result) => {
                 expect(result).to.equal(expected);
             }
         );
     });
 
-    it('Expect templates to cache templates with same name.', function () {
-        return templates.compile('template', {user: "Pesho"}).then(() => {
-                expect(mockedRequester.getAsyncCallCount()).to.equal(1);
+    it('Expect compile to call requester with correct url.', function () {
+        var expectedUrl = '../public/templates/templateName.handlebars';
+
+        return templates.compile('templateName', {user: "Pesho"}).then(() => {
+                var resultUrl = mockedRequester.getLastUrl();
+                expect(resultUrl).to.equal(expectedUrl);
             }
         );
     });

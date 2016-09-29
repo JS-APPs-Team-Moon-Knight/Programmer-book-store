@@ -71,4 +71,4 @@ let requester = {
     }
 };
 
-export {requester}
+export { requester }

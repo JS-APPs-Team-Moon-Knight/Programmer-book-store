@@ -1,19 +1,23 @@
-/* globals Navigo controllers $ dataService document */
+/* globals Navigo controllers $ dataService document templates*/
+
+import templates from 'templates';
+import dataService from 'data';
+import controllers from 'controllers';
 
 let router = new Navigo(null, true);
 
-let controllersInstance = controllers.get(dataService, templates);
+let controller = controllers.get(dataService, templates);
 
 router
-    .on('products', controllersInstance.home)
-    .on("login", controllersInstance.login)
-    .on("logout", controllersInstance.logout)
-    .on("user", controllersInstance.user)
-    .on("cart", controllersInstance.cart)
-    .on("search/:productName", controllersInstance.search)
-    .on("products/:category", controllersInstance.categories)
-    .on("product/:id", controllersInstance.productById)
-    .on("checkout", controllersInstance.checkout)
+    .on('products', controller.home)
+    .on("login", controller.login)
+    .on("logout", controller.logout)
+    .on("user", controller.user)
+    .on("cart", controller.cart)
+    .on("search/:productName", controller.search)
+    .on("products/:category", controller.categories)
+    .on("product/:id", controller.productById)
+    .on("checkout", controller.checkout)
     .on("home", () => {
         router.navigate("products");
     })

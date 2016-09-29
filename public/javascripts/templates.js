@@ -1,6 +1,6 @@
-import * as requester from 'requester';
+import requester from 'requester';
 
-let templates = (function(name){
+let templates = (function(){
     "use strict";
     let cachedTemplates = [/*{name: "", template: ""}*/];
 

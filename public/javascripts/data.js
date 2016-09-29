@@ -1,5 +1,6 @@
 /* globals requester localStorage */
 "use strict";
+import requester from 'requester';
 
 const HTTP_HEADER_KEY = "x-auth-key",
     KEY_STORAGE_USERNAME = "username",
@@ -136,3 +137,5 @@ var dataService = {
         return requester.putJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${localStorage.getItem(BOOKS_COLLECTION_ID)}`, body, headers);
     }
 };
+
+export {dataService}

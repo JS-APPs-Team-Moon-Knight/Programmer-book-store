@@ -30,3 +30,5 @@ let controllers = {
         };
     }
 };
+
+export {controllers}

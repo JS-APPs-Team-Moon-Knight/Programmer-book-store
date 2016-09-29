@@ -16,9 +16,8 @@ let requester = {
             });
         });
     },
-    putJSON(url, body, options = {}) {
+    putJSON(url, body, headers = {}) {
         return new Promise((resolve, reject) => {
-            var headers = options.headers || {};
             $.ajax({
                 url: url,
                 headers: headers,
@@ -34,9 +33,8 @@ let requester = {
             });
         });
     },
-    postJSON(url, body, options = {}) {
+    postJSON(url, body, headers = {}) {
         return new Promise((resolve, reject) => {
-            var headers = options.headers || {};
             $.ajax({
                 url: url,
                 headers: headers,
@@ -44,6 +42,7 @@ let requester = {
                 contentType: "application/json",
                 data: JSON.stringify(body),
                 success(response) {
+                    console.log(response);
                     resolve(response);
                 },
                 error(err) {
@@ -52,13 +51,15 @@ let requester = {
             });
         });
     },
-    getJSON(url) {
+    getJSON(url, headers = {}) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 url: url,
                 method: "GET",
+                headers: headers,
                 contentType: "application/json",
                 success(response) {
+                    console.log(response);
                     resolve(response);
                 },
                 error(err) {

@@ -13,6 +13,7 @@ let templates = (function () {
             return requester.get(url)
                 .then(template => {
                     cachedTemplates.push({name: name, template: template});
+                    return Promise.resolve(template);
                 });
         }
         else {
@@ -20,8 +21,17 @@ let templates = (function () {
         }
     }
 
+    function compile(templateName, data) {
+        var result = get(templateName).then(template => {
+            var templateFunction = Handlebars.compile(template);
+            return templateFunction(data);
+        });
+
+        return result;
+    }
+
     return {
-        get
+        compile
     }
 })();
 

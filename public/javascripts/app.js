@@ -25,3 +25,7 @@ router
         router.navigate("products");
     })
     .resolve();
+
+templates.compile('temp', {user: "Pesho"}).then(x => {
+    console.log(x);
+});

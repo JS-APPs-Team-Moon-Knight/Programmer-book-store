@@ -1,6 +1,6 @@
 /* globals requester localStorage */
 "use strict";
-import requester from 'requester';
+import {requester} from 'requester';
 
 const HTTP_HEADER_KEY = "x-auth-key",
     KEY_STORAGE_USERNAME = "username",

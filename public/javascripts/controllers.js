@@ -15,13 +15,16 @@ let controllers = {
             user() {
 
             },
-            search() {
+            search(params) {
 
             },
-            categories() {
+            categories(params) {
 
             },
             checkout() {
+
+            },
+            productById(params) {
 
             }
         };

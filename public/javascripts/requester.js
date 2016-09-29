@@ -70,3 +70,5 @@ let requester = {
         });
     }
 };
+
+export {requester}

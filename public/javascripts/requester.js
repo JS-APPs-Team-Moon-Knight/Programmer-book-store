@@ -11,7 +11,7 @@ let requester = {
                     resolve(response);
                 },
                 error(err) {
-                    console.log(err);
+                    reject(err);
                 }
             });
         });
@@ -28,7 +28,7 @@ let requester = {
                     resolve(response);
                 },
                 error(err) {
-                    console.log(err);
+                    reject(err);
                 }
             });
         });
@@ -46,7 +46,8 @@ let requester = {
                     resolve(response);
                 },
                 error(err) {
-                    console.log(err);
+                    reject(err);
+
                 }
             });
         });
@@ -63,7 +64,7 @@ let requester = {
                     resolve(response);
                 },
                 error(err) {
-                    console.log(err);
+                    reject(err);
                 }
             });
         });

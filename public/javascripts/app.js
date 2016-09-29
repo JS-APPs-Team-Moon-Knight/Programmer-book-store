@@ -7,12 +7,15 @@ let controllersInstance = controllers.get(dataService, templates);
 router
     .on("login", controllersInstance.login)
     .on("logout", controllersInstance.logout)
-    .on("home", controllersInstance.home)
     // .on("user", controllersInstance.user)
     .on("cart", controllersInstance.cart)
-    .on("search", controllersInstance.search)
-    .on("categories", controllersInstance.categories)
+    .on("search/:productName", controllersInstance.search)
+    .on("products/:category", controllersInstance.categories)
+    .on("checkout", controllersInstance.checkout)
+    .on("home", () => {
+        router.navigate("/products");
+    })
     .on(() => {
-        router.navigate("/home");
+        router.navigate("/products");
     })
     .resolve();

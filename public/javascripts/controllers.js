@@ -20,6 +20,9 @@ let controllers = {
             },
             categories() {
 
+            },
+            checkout() {
+
             }
         };
     }

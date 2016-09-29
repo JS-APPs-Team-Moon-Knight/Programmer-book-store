@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-	"test":  "mocha tests"
+    "test": "mocha tests"
   },
   "author": "",
   "license": "MIT",
@@ -15,6 +15,8 @@
     "express": "^4.13.3",
     "lodash": "^3.10.1",
     "lowdb": "^0.10.2",
+    "systemjs": "^0.19.39",
+    "systemjs-plugin-babel": "0.0.15",
     "underscore-db": "^0.9.0"
   },
   "devDependencies": {

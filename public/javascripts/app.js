@@ -1,8 +1,8 @@
 /* globals Navigo controllers $ dataService document templates*/
 
-import templates from 'templates';
-import dataService from 'data';
-import controllers from 'controllers';
+import {templates} from 'templates';
+import {dataService} from 'dataService';
+import {controllers} from 'controllers';
 
 let router = new Navigo(null, true);
 

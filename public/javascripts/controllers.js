@@ -4,12 +4,14 @@ let controllers = {
     get(dataService, templates) {
         return {
             home() {
-
             },
             cart() {
 
             },
             login() {
+
+            },
+            logout() {
 
             },
             user() {

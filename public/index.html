@@ -80,7 +80,30 @@
 <script src="./bower_components/jquery/dist/jquery.js"></script>
 <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./bower_components/navigo/lib/navigo.js"></script>
+<script src="./bower_components/systemjs/dist/system.js"></script>
 <!--libs-->
-<script src="javascripts/app.js"></script>
+<script>
+    // set our baseURL reference path
+    SystemJS.config({
+        baseURL: '/javascripts',
+        map: {
+            'plugin-babel': './bower_components/systemjs-plugin-babel/plugin-babel.js',
+            'systemjs-babel-build': './bower_components/systemjs-plugin-babel/systemjs-babel-browser.js',
+            'app': './javascripts/app.js',
+            'controllers': './javascripts/controllers.js',
+            'requester': './javascripts/requester.js',
+            'dataService': './javascripts/data.js',
+            'templates': './javascripts/templates.js',
+        },
+        transpiler: 'plugin-babel',
+        babelOptions: {
+            optional: [
+                "runtime"
+            ]
+        }
+    });
+
+    SystemJS.import('app');
+</script>
 </body>
 </html>

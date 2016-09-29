@@ -1,4 +1,4 @@
-import requester from 'requester';
+import {requester} from 'requester';
 
 let templates = (function(){
     "use strict";

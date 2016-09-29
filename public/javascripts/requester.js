@@ -1,6 +1,5 @@
 /* globals $ Promise */
 "use strict";
-
 let requester = {
     get(url) {
         return new Promise((resolve, reject) => {
@@ -71,4 +70,4 @@ let requester = {
     }
 };
 
-export { requester }
+// export { requester }

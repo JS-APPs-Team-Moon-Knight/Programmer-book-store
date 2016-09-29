@@ -1,12 +1,14 @@
 /* globals Navigo controllers $ dataService document templates*/
 "use strict";
-import {templates} from 'templates';
-import {dataService} from 'dataService';
-import {controllers} from 'controllers';
+// import {templates} from 'templates';
+// import {dataService} from 'dataService';
+// import {controllers} from 'controllers';
+// import {requester} from 'requester';
 
+let templateInstance = templates(requester, Handlebars);
 let router = new Navigo(null, true);
 
-let controller = controllers.get(dataService, templates);
+let controller = controllers.get(dataService, templateInstance);
 
 router
     .on('products', controller.home)
@@ -26,6 +28,6 @@ router
     })
     .resolve();
 
-templates.compile('temp', {user: "Pesho"}).then(x => {
-    console.log(x);
+templateInstance.compile('temp', {user: "Pesho"}).then(compiledHtml => {
+    console.log(compiledHtml);
 });

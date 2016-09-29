@@ -9,18 +9,10 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.13.3",
-    "cors": "^2.8.1",
-    "express": "^4.13.3",
-    "lodash": "^3.10.1",
-    "lowdb": "^0.10.2",
-    "systemjs": "^0.19.39",
-    "systemjs-plugin-babel": "0.0.15",
-    "underscore-db": "^0.9.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
+    "handlebars": "^4.0.5",
     "mocha": "^3.1.0"
   }
 }

@@ -1,6 +1,4 @@
-import {requester} from "requester";
-
-let templates = (function () {
+let templates = function (requester, templateEngine) {
     "use strict";
     let cachedTemplates = [/*{name: "", template: ""}*/];
 
@@ -8,7 +6,7 @@ let templates = (function () {
         let cachedTemplate = cachedTemplates.find(x => x.name === name);
 
         if (!cachedTemplate) {
-            let url = `./templates/${name}.handlebars`;
+            let url = `../public/templates/${name}.handlebars`;
 
             return requester.get(url)
                 .then(template => {
@@ -23,7 +21,7 @@ let templates = (function () {
 
     function compile(templateName, data) {
         var result = get(templateName).then(template => {
-            var templateFunction = Handlebars.compile(template);
+            var templateFunction = templateEngine.compile(template);
             return templateFunction(data);
         });
 
@@ -33,6 +31,10 @@ let templates = (function () {
     return {
         compile
     }
-})();
+};
 
-export {templates}
+if (typeof window === 'undefined') {
+    module.exports = templates;
+}
+// export {templates};
+

@@ -34,4 +34,4 @@ let controllers = {
     }
 };
 
-export {controllers}
+// export {controllers}

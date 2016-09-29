@@ -5,17 +5,20 @@ let templates = (function(){
     let cachedTemplates = [/*{name: "", template: ""}*/];
 
     function get(name) {
-        let url = `/templates/${name}.handlebars`;
+        let url = `./templates/${name}.handlebars`;
         let cachedTemplate = cachedTemplates.find(x => x.name === name);
 
         if(!cachedTemplate) {
             let result = requester.get(url);
-            cachedTemplates.push({name: name, template: result});
+            let templateFunction;
+            result.then(template => {
+                cachedTemplates.push({name: name, template: template});
+            });
 
             return result;
         }
         else {
-            return cachedTemplate.template;
+            return Promise.resolve(cachedTemplate.template);
         }
     }
 

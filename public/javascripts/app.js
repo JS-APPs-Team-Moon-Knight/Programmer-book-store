@@ -1,5 +1,5 @@
 /* globals Navigo controllers $ dataService document templates*/
-
+"use strict";
 import {templates} from 'templates';
 import {dataService} from 'dataService';
 import {controllers} from 'controllers';

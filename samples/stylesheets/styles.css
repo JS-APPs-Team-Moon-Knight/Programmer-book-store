@@ -1,0 +1,40 @@
+/*# sourceMappingURL=styles.css.map */
+
+.img-books-cart {
+    max-width: 7em;
+}
+
+.total-cost {
+    border: 1px solid grey;
+    padding: 0.3em;
+    background-color: #E9EBEE;
+    font-size: 2em;
+}
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+}
+
+.cart-table-cell {
+    overflow: auto;
+    font-size: 1.7em;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.img-header {
+    width: 4em;
+    display: inline-block;   
+}
+
+.img-books {
+    max-width: 400px;
+}
+
+.heading-section {
+    display: inline-block;   
+}
+
+.inline {
+    display: inline;
+}

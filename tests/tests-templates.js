@@ -5,7 +5,7 @@ const expect = chai.expect;
 describe("Templates tests", function () {
     const Handlebars = require('handlebars');
 
-    const mockedRequester = (function(){
+    const mockedRequester = (function () {
         var getCalledCount = 0,
             lastUrl;
 
@@ -32,8 +32,24 @@ describe("Templates tests", function () {
 
     const templates = require('../public/javascripts/templates')(mockedRequester, Handlebars);
 
-    it('Expect templates to compile correctly.', function () {
-        var expected = "<template>Pesho</template>";
+    it('Expect compile to exist and  be a function.', function () {
+        const expected = "function";
+
+        var result = typeof templates.compile;
+
+        expect(templates.compile).to.exist;
+        expect(result).to.equal(expected);
+
+    });
+
+    it('Expect compile to return a promise', function () {
+        var result = templates.compile('templateName', {user: "Pesho"});
+
+        expect(result instanceof Promise).to.be.true;
+    });
+
+    it('Expect compile to have correct output.', function () {
+        const expected = "<template>Pesho</template>";
 
         return templates.compile('templateName', {user: "Pesho"}).then((result) => {
                 expect(result).to.equal(expected);
@@ -41,9 +57,10 @@ describe("Templates tests", function () {
         );
     });
 
-    it('Expect to cache templates with same name.', function () {
-        var expectedCallCount = 1;
+    it('Expect compile to cache templates with same name.', function () {
+        const expectedCallCount = 1;
         templates.compile('templateName', {user: "Pesho"});
+
         return templates.compile('templateName', {user: "Pesho"}).then(() => {
                 var resultCallCount = mockedRequester.getRequestCallCount();
                 expect(resultCallCount).to.equal(expectedCallCount);
@@ -51,8 +68,8 @@ describe("Templates tests", function () {
         );
     });
 
-    it('Expect templates to compile correctly with caching.', function () {
-        var expected = "<template>Pesho</template>";
+    it('Expect compile to have correct output when caching.', function () {
+        const expected = "<template>Pesho</template>";
         templates.compile('templateName', {user: "Pesho"});
 
         return templates.compile('templateName', {user: "Pesho"}).then((result) => {
@@ -62,7 +79,7 @@ describe("Templates tests", function () {
     });
 
     it('Expect compile to call requester with correct url.', function () {
-        var expectedUrl = '../public/templates/templateName.handlebars';
+        const expectedUrl = './templates/templateName.handlebars';
 
         return templates.compile('templateName', {user: "Pesho"}).then(() => {
                 var resultUrl = mockedRequester.getLastUrl();

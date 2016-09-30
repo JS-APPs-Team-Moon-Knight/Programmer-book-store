@@ -1,7 +1,7 @@
 /* globals dataService templates $ Handlebars console */
 "use strict";
 let controllers = {
-    get(dataService, templates) {
+    getInstance(dataService, templates) {
         return {
             home() {
 

@@ -1,21 +1,19 @@
 let templates = function (requester, templateEngine) {
     "use strict";
-    let cachedTemplates = [/*{name: "", template: ""}*/];
+    var cachedTemplates = {};
 
     function get(name) {
-        let cachedTemplate = cachedTemplates.find(x => x.name === name);
-
-        if (!cachedTemplate) {
-            let url = `../public/templates/${name}.handlebars`;
+        if (cachedTemplates[name]) {
+            return Promise.resolve(cachedTemplates[name]);
+        }
+        else {
+            let url = `./templates/${name}.handlebars`;
 
             return requester.get(url)
                 .then(template => {
-                    cachedTemplates.push({name: name, template: template});
+                    cachedTemplates[name] = template;
                     return Promise.resolve(template);
                 });
-        }
-        else {
-            return Promise.resolve(cachedTemplate.template);
         }
     }
 

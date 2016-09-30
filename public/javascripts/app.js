@@ -5,10 +5,12 @@
 // import {controllers} from 'controllers';
 // import {requester} from 'requester';
 
-let templateInstance = templates(requester, Handlebars);
+let requesterInstance = requester.getInstance($);
+let templateInstance = templates(requesterInstance, Handlebars);
+let dataServiceInstance = dataService.getInstance(requesterInstance);
 let router = new Navigo(null, true);
 
-let controller = controllers.get(dataService, templateInstance);
+let controller = controllers.getInstance(dataServiceInstance, templateInstance);
 
 router
     .on('products', controller.home)

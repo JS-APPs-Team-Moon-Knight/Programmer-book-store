@@ -117,26 +117,32 @@ var dataService = {
                     }));
             },
 
-            createBooksDataBase() {
+            createBookInstance(book) {
                 let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                    body = {},
+                    body = book,
                     headers = {
                         'Authorization': `Basic ${encodedAppKey}`
                     }
 
-                return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, body, headers)
-                    .then((response) => {
-                        localStorage.setItem(BOOKS_COLLECTION_ID, response._id);
-                    })
+                return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, body, headers);
             },
 
-            updateBooksDataBase(body) {
+            updateBookInstance(id, body) {
                 let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
                     headers = {
                         'Authorization': `Basic ${encodedAppKey}`
                     }
 
-                return requester.putJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${localStorage.getItem(BOOKS_COLLECTION_ID)}`, body, headers);
+                return requester.putJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${id}`, body, headers);
+            },
+            
+            getAllBooks() {
+                let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
+                    headers = {
+                        'Authorization': `Basic ${encodedAppKey}`
+                    }
+
+                return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, headers);
             }
         }
     }

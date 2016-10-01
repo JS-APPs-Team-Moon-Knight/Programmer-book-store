@@ -26,11 +26,11 @@ let controllers = {
                         $('#container').html(html);
                     });
             },
-            login(context) {
-                function login() {
-                    templates.get('login')
+            login() {
+                    templates.compile('login')
                         .then(function (template) {
-                            context.$element().html(template());
+                            $('#container').html('');
+                            $('#container').html(template);
 
                             $('#btn-login').on('click', function () {
                                 var user = {
@@ -40,11 +40,12 @@ let controllers = {
                                 dataService.login(user)
                                     .then(function () {
                                         console.log('User logged in!')
-
+                                    })
+                                    .catch(err => {
+                                        console.log(err);
                                     })
                             })
                         });
-                }
             },
             logout() {
 

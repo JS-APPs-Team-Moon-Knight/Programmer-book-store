@@ -2,7 +2,7 @@ let templates = function (requester, templateEngine) {
     "use strict";
     var cachedTemplates = {};
 
-    function get(name) {
+    function _get(name) {
         if (cachedTemplates[name]) {
             return Promise.resolve(cachedTemplates[name]);
         }
@@ -18,7 +18,7 @@ let templates = function (requester, templateEngine) {
     }
 
     function compile(templateName, data) {
-        var result = get(templateName).then(template => {
+        var result = _get(templateName).then(template => {
             var templateFunction = templateEngine.compile(template);
             return templateFunction(data);
         });

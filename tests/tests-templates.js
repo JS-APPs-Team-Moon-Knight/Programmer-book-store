@@ -32,7 +32,7 @@ describe("Templates tests", function () {
 
     const templates = require('../public/javascripts/templates')(mockedRequester, Handlebars);
 
-    it('Expect compile to exist and  be a function.', function () {
+    it('Expect compile to exist and be a function.', function () {
         const expected = "function";
 
         var result = typeof templates.compile;

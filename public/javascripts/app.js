@@ -1,4 +1,4 @@
-/* globals Navigo controllers $ dataService document templates*/
+/* globals Navigo controllers $ dataService document templates requester*/
 "use strict";
 // import {templates} from 'templates';
 // import {dataService} from 'dataService';

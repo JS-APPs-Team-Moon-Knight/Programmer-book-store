@@ -21,27 +21,30 @@ describe("Requester tests", function () {
         }
     })();
 
-    const requester = require('../public/javascripts/requester')(mockedJquery);
-    const defaultExpectedUrl = './api/auth';
-    const expectedFunctionType = 'function';
-    const defaultExpectedHeaders = {'x-auth-token': 'OOO'};
-    const defaultExpectedData = {'name': 'Pesho'};
+    const requester = require('../public/javascripts/requester')(mockedJquery),
+        defaultExpectedUrl = './api/auth',
+        expectedFunctionType = 'function',
+        defaultExpectedHeaders = {'x-auth-token': 'OOO'},
+        defaultExpectedData = {'name': 'Pesho'},
+        expectedPostMethod = 'POST',
+        expectedGetMethod = 'GET',
+        expectedPutmethod = 'PUT';
 
     describe("get tests", function () {
-        it('Expect get to exist and  be a function.', function () {
+        it('Expect get to exist and be a function.', function () {
             var result = typeof requester.get;
 
             expect(requester.get).to.exist;
             expect(result).to.equal(expectedFunctionType);
         });
+
         it('Expect get to call ajax method with correct parameters.', function () {
             return requester.get(defaultExpectedUrl).then(() => {
                 var result = mockedJquery.getLastRequest();
 
                 expect(result.url).to.equal(defaultExpectedUrl);
-                expect(result.method).to.equal("GET");
+                expect(result.method).to.equal(expectedGetMethod);
             });
-
         });
 
         it('Expect get to return a promise.', function () {
@@ -53,7 +56,7 @@ describe("Requester tests", function () {
 
 
     describe("putJSON tests", function () {
-        it('Expect putJSON to exist and  be a function.', function () {
+        it('Expect putJSON to exist and be a function.', function () {
             var result = typeof requester.putJSON;
 
             expect(requester.putJSON).to.exist;
@@ -65,7 +68,7 @@ describe("Requester tests", function () {
                 var requestResult = mockedJquery.getLastRequest();
 
                 expect(requestResult.url).to.equal(defaultExpectedUrl);
-                expect(requestResult.method).to.equal("PUT");
+                expect(requestResult.method).to.equal(expectedPutmethod);
                 expect(requestResult.headers).to.equal(defaultExpectedHeaders);
                 expect(requestResult.data).to.equal(JSON.stringify(defaultExpectedData));
             });
@@ -77,9 +80,9 @@ describe("Requester tests", function () {
             expect(result instanceof Promise).to.be.true;
         });
     });
-    describe("postJSON tests", function () {
 
-        it('Expect postJSON to exist and  be a function.', function () {
+    describe("postJSON tests", function () {
+        it('Expect postJSON to exist and be a function.', function () {
             var result = typeof requester.postJSON;
 
             expect(requester.postJSON).to.exist;
@@ -91,11 +94,10 @@ describe("Requester tests", function () {
                 var requestResult = mockedJquery.getLastRequest();
 
                 expect(requestResult.url).to.equal(defaultExpectedUrl);
-                expect(requestResult.method).to.equal("POST");
+                expect(requestResult.method).to.equal(expectedPostMethod);
                 expect(requestResult.headers).to.equal(defaultExpectedHeaders);
                 expect(requestResult.data).to.equal(JSON.stringify(defaultExpectedData));
             });
-
         });
 
         it('Expect postJSON to return a promise.', function () {
@@ -106,7 +108,7 @@ describe("Requester tests", function () {
     });
 
     describe("getJSON tests", function () {
-        it('Expect getJSON to exist and  be a function.', function () {
+        it('Expect getJSON to exist and be a function.', function () {
             var result = typeof requester.getJSON;
 
             expect(requester.getJSON).to.exist;
@@ -118,10 +120,9 @@ describe("Requester tests", function () {
                 var requestResult = mockedJquery.getLastRequest();
 
                 expect(requestResult.url).to.equal(defaultExpectedUrl);
-                expect(requestResult.method).to.equal("GET");
+                expect(requestResult.method).to.equal(expectedGetMethod);
                 expect(requestResult.headers).to.equal(defaultExpectedHeaders);
             });
-
         });
 
         it('Expect getJSON to return a promise.', function () {
@@ -130,5 +131,4 @@ describe("Requester tests", function () {
             expect(result instanceof Promise).to.be.true;
         });
     });
-
 });

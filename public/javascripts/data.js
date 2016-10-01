@@ -97,7 +97,7 @@ var dataService = {
         }
 
         function removeFromCart(book) {
-            dataService.getCart()
+            getCart()
                 .then(((cart) => {
                     for (let i = 0; i < cart.length; i += 1) {
                         if (book._id == cart[i]._id) {

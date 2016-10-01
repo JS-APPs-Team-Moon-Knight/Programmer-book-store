@@ -21,7 +21,8 @@ let controllers = {
                 .then((booksCollection) => {
                     let booksObject = {
                         books: booksCollection
-                    }
+                    };
+
                     return templates.compile('products', booksObject);
                 })
                 .then((html) => {
@@ -45,6 +46,13 @@ let controllers = {
                 })
                 .then((html) => {
                     _changePageHtml(html);
+
+                    $('.remove-from-cart').click((ev) => {
+                        var bookId = $(ev.target).attr('data-id');
+                        productById({id: bookId}).then(book => {
+                            dataService.removeFromCart(book);
+                        })
+                    });
                 });
         }
 
@@ -64,10 +72,9 @@ let controllers = {
                                 toastr.success('User Logged in!');
                                 $(location).attr('href', '#/products')
                             })
-
                             .catch(err => {
-                                console.log(err);
-                            })
+                                toastr.error(err.responseJSON.description);
+                            });
                     });
                 });
         }
@@ -90,9 +97,8 @@ let controllers = {
                                 console.log('User registered!');
                                 toastr.success('User registered')
                             })
-                            .catch(err=> {
-                                console.log(err)
-
+                            .catch(err => {
+                                toastr.error(err.responseJSON.description);
                             });
                     });
                 });
@@ -120,7 +126,6 @@ let controllers = {
 
         function productById(params) {
             return dataService.getBookById(params.id);
-            //return new Book("title", "authro", "category", "url", 12.5, 250, "descr");
         }
 
         function about() {

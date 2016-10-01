@@ -32,12 +32,7 @@ let controllers = {
                     });
             },
             login() {
-<<<<<<< HEAD
-                
                 templates.compile('login')
-=======
-               templates.compile('login')
->>>>>>> origin/master
                     .then(function (template) {
                         $('#container').html('');
                         $('#container').html(template);

@@ -25,10 +25,14 @@ router
     .on("/checkout", controller.checkout)
     .on("/about", controller.about)
     .on("/contacts", controller.contacts)
+
     .on("/home", () => {
         router.navigate("/products");
     })
-    .on(() => {
+    .on("/", () => {
+        router.navigate("/products");
+    })
+    .on("", () => {
         router.navigate("/products");
     })
     .resolve();

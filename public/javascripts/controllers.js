@@ -4,7 +4,7 @@ let controllers = {
     getInstance(dataService, templates) {
         return {
             home() {
-                templates.compile('home').then(template => {
+                templates.compile('products').then(template => {
                     $('#container').html('');
                     $('#container').html(template);
                 });

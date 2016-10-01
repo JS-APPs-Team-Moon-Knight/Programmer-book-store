@@ -35,7 +35,3 @@ router
         router.navigate("/products");
     })
     .resolve();
-
-templateInstance.compile('temp', {user: "Pesho"}).then(compiledHtml => {
-    console.log(compiledHtml);
-});

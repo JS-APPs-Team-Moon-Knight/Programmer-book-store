@@ -15,11 +15,19 @@ var dataService = {
     getInstance(requester) {
         var cachedBooks = {};
 
+        function _cacheBook(book) {
+            cachedBooks[book._id] = new Book(book.title, book.author, book.category, book.imgUrl, book.price, book.pages, book.description)
+        }
+
+        function _unCacheBook(book) {
+            cachedBooks[book._id] = undefined;
+        }
+
         function login(user) {
             let encodedAppKey = btoa(`${APP_ID}:${APP_SECRET}`),
                 headers = {
                     'Authorization': `Basic ${encodedAppKey}`
-                }
+                };
 
             return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/login`, user, headers)
                 .then(response => {
@@ -33,7 +41,7 @@ var dataService = {
             let encodedAppKey = btoa(`${APP_ID}:${APP_SECRET}`),
                 headers = {
                     'Authorization': `Basic ${encodedAppKey}`
-                }
+                };
 
             return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/`, user, headers);
         }
@@ -42,7 +50,7 @@ var dataService = {
             let body = {},
                 headers = {
                     'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
-                }
+                };
 
             return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/_logout`, body, headers)
                 .then((response) => {
@@ -70,27 +78,25 @@ var dataService = {
             let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
                 headers = {
                     'Authorization': `Basic ${encodedAppKey}`
-                }
+                };
 
             return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers)
                 .then((response) => {
-                    // console.log(response)
                     return response.books;
                 })
         }
 
         function addToCart(book) {
-            dataService.getCart()
+            getCart()
                 .then(((cart) => {
-                    cart.push(book)
-                    console.log(cart)
+                    cart.push(book);
                     let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
                         body = {
                             books: cart
                         },
                         headers = {
                             'Authorization': `Basic ${encodedAppKey}`
-                        }
+                        };
 
                     return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
                 }));
@@ -105,7 +111,7 @@ var dataService = {
                             break;
                         }
                     }
-                    console.log(cart)
+                    // console.log(cart);
                     let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
                         body = {
                             books: cart
@@ -127,7 +133,10 @@ var dataService = {
 
             _cacheBook(book);
 
-            return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, body, headers);
+            return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, body, headers)
+                .catch(() => {
+                    _unCacheBook(body)
+                });
         }
 
         function updateBookInstance(id, body) {
@@ -138,7 +147,10 @@ var dataService = {
 
             _cacheBook(body);
 
-            return requester.putJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${id}`, body, headers);
+            return requester.putJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${id}`, body, headers)
+                .catch(() => {
+                    _unCacheBook(body)
+                });
         }
 
         function getAllBooks() {
@@ -146,6 +158,7 @@ var dataService = {
                 headers = {
                     'Authorization': `Basic ${encodedAppKey}`
                 };
+
 
             return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, headers)
                 .then(response => {
@@ -165,15 +178,12 @@ var dataService = {
                         'Authorization': `Basic ${encodedAppKey}`
                     };
 
-                return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${id}`, headers).then(book => {
-                    _cacheBook(book);
-                    return book;
-                });
+                return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${id}`, headers)
+                    .then(book => {
+                        _cacheBook(book);
+                        return book;
+                    });
             }
-        }
-
-        function _cacheBook(book) {
-            cachedBooks[book._id] = new Book(book.title, book.author, book.category, book.imgUrl, book.price, book.pages, book.description)
         }
 
         return {

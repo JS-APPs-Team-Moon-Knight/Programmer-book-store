@@ -72,7 +72,6 @@ let controllers = {
                         };
                         dataService.login(user)
                             .then(function () {
-                                console.log('User logged in!');
                                 toastr.success('User Logged in!');
                                 $(location).attr('href', '#/products')
                             })

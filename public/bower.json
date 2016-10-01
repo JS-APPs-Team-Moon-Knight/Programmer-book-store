@@ -20,6 +20,7 @@
     "bootstrap": "^3.3.7",
     "handlebars": "^4.0.5",
     "navigo": "^3.0.0",
-    "systemjs": "*"
+    "systemjs": "*",
+    "toastr": "^2.1.3"
   }
 }

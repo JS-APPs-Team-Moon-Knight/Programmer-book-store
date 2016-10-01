@@ -226,6 +226,6 @@ class Author {
         this.books.splice(index,1);
     }
     removeAll() {
-        this.books = [];
+        this._books = [];
     }
 }

@@ -2,17 +2,18 @@
 "use strict";
 // import {requester} from 'requester';
 
-const HTTP_HEADER_KEY = "x-auth-key",
-    KEY_STORAGE_USERNAME = "username",
-    KEY_STORAGE_AUTH_KEY = "authKey",
-    CURRENT_USER_ID = "userID",
-    BOOKS_COLLECTION_ID = "booksID",
-    APP_ID = "kid_SkGEDPt6",
-    APP_SECRET = "1ddc36c888904211906588c736731c4d",
-    APP_MASTER_KEY = "2c9b407d779742d18a5e4afef9700855";
-
 var dataService = {
     getInstance(requester) {
+
+        const HTTP_HEADER_KEY = "x-auth-key",
+            KEY_STORAGE_USERNAME = "username",
+            KEY_STORAGE_AUTH_KEY = "authKey",
+            CURRENT_USER_ID = "userID",
+            BOOKS_COLLECTION_ID = "booksID",
+            APP_ID = "kid_SkGEDPt6",
+            APP_SECRET = "1ddc36c888904211906588c736731c4d",
+            APP_MASTER_KEY = "2c9b407d779742d18a5e4afef9700855";
+
         var cachedBooks = {};
 
         function _cacheBook(book) {

@@ -23,11 +23,13 @@ router
     .on("/products/:category", controller.categories)
     .on("/product/:id", controller.productById)
     .on("/checkout", controller.checkout)
+    .on("/about", controller.about)
+    .on("/contacts", controller.contacts)
     .on("/home", () => {
-        router.navigate("products");
+        router.navigate("/products");
     })
     .on(() => {
-        router.navigate("products");
+        router.navigate("/products");
     })
     .resolve();
 

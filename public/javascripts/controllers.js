@@ -4,6 +4,11 @@ let controllers = {
     getInstance(dataService, templates) {
         return {
             home() {
+                templates.compile('home').then(template => {
+                    $('#container').html('');
+                    $('#container').html(template);
+                });
+
                 dataService.getAllBooks()
                     .then((booksCollection) => {
                         let booksObject = {
@@ -27,7 +32,7 @@ let controllers = {
                     });
             },
             login() {
-                templates.compile('login')
+               templates.compile('login')
                     .then(function (template) {
                         $('#container').html('');
                         $('#container').html(template);
@@ -91,6 +96,18 @@ let controllers = {
             },
             productById(params) {
 
+            },
+            about() {
+                templates.compile('about').then(html => {
+                    $('#container').html('');
+                    $('#container').html(html);
+                });
+            },
+            contacts() {
+                templates.compile('contacts').then(html => {
+                    $('#container').html('');
+                    $('#container').html(html);
+                });
             }
 
         };

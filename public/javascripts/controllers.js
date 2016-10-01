@@ -42,7 +42,11 @@ let controllers = {
                     return Promise.all(booksInCart);
                 })
                 .then(booksInCart => {
-                    return templates.compile('cart', {books: booksInCart});
+                    var totalPrice = 0;
+                    booksInCart.forEach(book => {
+                        totalPrice += book.price;
+                    });
+                    return templates.compile('cart', {books: booksInCart, totalPrice: totalPrice});
                 })
                 .then((html) => {
                     _changePageHtml(html);

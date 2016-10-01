@@ -2,119 +2,153 @@
 "use strict";
 let controllers = {
     getInstance(dataService, templates) {
-        return {
-            home() {
-                templates.compile('products').then(template => {
-                    $('#container').html('');
-                    $('#container').html(template);
+        var $mainContainer = $('#container');
+
+        if ($mainContainer.length < 1) {
+            throw new Error("No #container found on page!")
+        }
+
+        function _changePageHtml(html) {
+            $mainContainer.html(html);
+        }
+
+        function home() {
+            templates.compile('products').then(html => {
+                _changePageHtml(html);
+            });
+
+            dataService.getAllBooks()
+                .then((booksCollection) => {
+                    let booksObject = {
+                        books: booksCollection
+                    }
+                    return templates.compile('products', booksObject);
+                })
+                .then((html) => {
+                    _changePageHtml(html);
                 });
+        }
 
-                dataService.getAllBooks()
-                    .then((booksCollection) => {
-                        let booksObject = {
-                            books: booksCollection
-                        }
-                        return templates.compile('products', booksObject);
-                    })
-                    .then((html) => {
-                        $('#container').html('');
-                        $('#container').html(html);
+        function cart() {
+            dataService.getCart()
+                .then((userCart) => {
+                    var booksInCart = [];
+
+                    userCart.forEach(_id => {
+                        booksInCart.push(productById({id: _id}));
                     });
-            },
-            cart() {
-                dataService.getCart()
-                    .then((userCart) => {
-                        return templates.compile('cart', userCart);
-                    })
-                    .then((html) => {
-                        $('#container').html('');
-                        $('#container').html(html);
+
+                    return Promise.all(booksInCart);
+                })
+                .then(booksInCart => {
+                    return templates.compile('cart', {books: booksInCart});
+                })
+                .then((html) => {
+                    _changePageHtml(html);
+                });
+        }
+
+        function login() {
+            templates.compile('login')
+                .then(function (html) {
+                    _changePageHtml(html);
+
+                    $('#btn-login').on('click', function () {
+                        var user = {
+                            username: $('#tb-username').val(),
+                            password: $('#tb-password').val()
+                        };
+                        dataService.login(user)
+                            .then(function () {
+                                console.log('User logged in!');
+                                toastr.success('User Logged in!');
+                                $(location).attr('href', '#/products')
+                            })
+
+                            .catch(err => {
+                                console.log(err);
+                            })
                     });
-            },
-            login() {
-                templates.compile('login')
-                    .then(function (template) {
-                        $('#container').html('');
-                        $('#container').html(template);
+                });
+        }
 
-                        $('#btn-login').on('click', function () {
-                            var user = {
-                                username: $('#tb-username').val(),
-                                password: $('#tb-password').val()
-                            };
-                            dataService.login(user)
-                                .then(function () {
-                                    console.log('User logged in!');
-                                    toastr.success('User Logged in!');
-                                    $(location).attr('href', '#/products')
-                                })
+        function register() {
+            templates.compile('register')
+                .then(function (html) {
+                    _changePageHtml(html);
 
-                                .catch(err => {
-                                    console.log(err);
-                                })
-                        });
-                    });
-            },
-            register(){
-                templates.compile('register')
-                    .then(function (template) {
-                        $('#container').html('');
-                        $('#container').html(template);
-
-                        $('#btn-register').on('click', function () {
-                            var user = {
-                                username: $('#tb-username').val(),
-                                password: $('#tb-password').val(),
-                                email: $('#tb-email').val(),
-                                phone: $('#tb-phone').val(),
-                                address: $('#tb-address').val()
-                            };
-                            dataService.register(user)
-                                .then(function () {
-                                    console.log('User registered!');
-                                    toastr.success('User registered')
-                                })
-                                .catch(err=> {
+                    $('#btn-register').on('click', function () {
+                        var user = {
+                            username: $('#tb-username').val(),
+                            password: $('#tb-password').val(),
+                            email: $('#tb-email').val(),
+                            phone: $('#tb-phone').val(),
+                            address: $('#tb-address').val()
+                        };
+                        dataService.register(user)
+                            .then(function () {
+                                console.log('User registered!');
+                                toastr.success('User registered')
+                            })
+                            .catch(err=> {
                                 console.log(err)
 
                             });
-                        });
                     });
-            },
-            logout() {
-                
-
-            },
-            user() {
-
-            },
-            search(params) {
-
-            },
-            categories(params) {
-
-            },
-            checkout() {
-
-            },
-            productById(params) {
-
-            },
-            about() {
-                templates.compile('about').then(html => {
-                    $('#container').html('');
-                    $('#container').html(html);
                 });
-            },
-            contacts() {
-                templates.compile('contacts').then(html => {
-                    $('#container').html('');
-                    $('#container').html(html);
-                });
-            }
+        }
 
+        function logout() {
+
+        }
+
+        function user() {
+
+        }
+
+        function search(params) {
+
+        }
+
+        function categories(params) {
+
+        }
+
+        function checkout() {
+
+        }
+
+        function productById(params) {
+            return dataService.getBookById(params.id);
+            //return new Book("title", "authro", "category", "url", 12.5, 250, "descr");
+        }
+
+        function about() {
+            templates.compile('about').then(html => {
+                _changePageHtml(html);
+            });
+        }
+
+        function contacts() {
+            templates.compile('contacts').then(html => {
+                _changePageHtml(html);
+            });
+        }
+
+        return {
+            home,
+            cart,
+            login,
+            register,
+            logout,
+            user,
+            search,
+            categories,
+            checkout,
+            productById,
+            about,
+            contacts
         };
-
     }
 };
 

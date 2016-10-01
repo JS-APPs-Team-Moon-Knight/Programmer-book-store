@@ -1,0 +1,50 @@
+<div id="container" class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-lg-offset-1">
+            <!--<img class="img-header" src="./images/decorative-line-patterns-wall-sticker-decal-6XSnqI-clipart.png" alt="curved-line">-->
+            <h2 class="heading-section">Cart</h2>
+            <!--<img class="img-header" src="./images/decorative-line-clip-art-cliparts-co-lQ7dzH-clipart.png" alt="curved-line">-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-lg-offset-1">
+            <table class="table table-hover table-striped table-responsive">
+                <tbody><tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Delivery date</th>
+                    <th></th>
+                </tr>
+                {{#books}}
+                    <tr>
+                        <td><img src="{{imgUrl}}" alt="book-cover" class="img-books-cart"></td>
+                        <td><span class="cart-table-cell">{{title}}</span></td>
+                        <td><span class="cart-table-cell">{{author}}</span></td>
+                        <td><span class="cart-table-cell">{{price}} BGN</span></td>
+                        <td><span class="cart-table-cell"><em>Up to 3 days</em></span></td>
+                        <td class="vert-align"><button type="button" class="btn btn-block btn-danger">Remove</button></td>
+                    </tr>
+                {{/books}}
+                </tbody></table>
+        </div>
+    </div>
+    <div style="margin-bottom: 2em" class="row">
+        <div class="col-lg-4 col-lg-offset-8">
+            <span class="total-cost">Total: 16.99 BGN</span>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 3em;">
+        <div class="col-lg-4 col-lg-offset-8">
+            <a id="checkout-button" class="btn btn-default inline" href="#">Checkout</a>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 3em;">
+        <div class="col-lg-4 col-lg-offset-8">
+            <a class="btn btn-group-justified btn-success inline" href="#products">Continue shopping</a>
+        </div>
+    </div>
+    </div>
+</div>

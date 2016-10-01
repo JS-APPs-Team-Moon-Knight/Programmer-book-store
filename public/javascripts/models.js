@@ -13,7 +13,7 @@ class Book {
         return this._title;
     }
     set title(value) {
-        this._tilte = value;
+        this._title = value;
     }
 
     get author() {

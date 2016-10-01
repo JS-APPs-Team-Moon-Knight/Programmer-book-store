@@ -25,7 +25,6 @@ router
     .on("/checkout", controller.checkout)
     .on("/about", controller.about)
     .on("/contacts", controller.contacts)
-
     .on("/home", () => {
         router.navigate("/products");
     })

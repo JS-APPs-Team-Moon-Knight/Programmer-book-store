@@ -27,6 +27,7 @@ let controllers = {
                     });
             },
             login() {
+                
                 templates.compile('login')
                     .then(function (template) {
                         $('#container').html('');
@@ -40,13 +41,14 @@ let controllers = {
                             dataService.login(user)
                                 .then(function () {
                                     console.log('User logged in!');
-                                    toastr.success('User Logged in!')
+                                    toastr.success('User Logged in!');
+                                    $(location).attr('href', '#/products')
                                 })
 
                                 .catch(err => {
                                     console.log(err);
                                 })
-                        })
+                        });
                     });
             },
             register(){
@@ -70,11 +72,13 @@ let controllers = {
                                 })
                                 .catch(err=> {
                                 console.log(err)
+
                             });
                         });
                     });
             },
             logout() {
+                
 
             },
             user() {

@@ -26,14 +26,31 @@ let controllers = {
                         $('#container').html(html);
                     });
             },
-            login() {
+            login(context) {
+                function login() {
+                    templates.get('login')
+                        .then(function (template) {
+                            context.$element().html(template());
 
+                            $('#btn-login').on('click', function () {
+                                var user = {
+                                    username: $('#tb-username').val(),
+                                    password: $('#tb-password').val()
+                                };
+                                dataService.login(user)
+                                    .then(function () {
+                                        console.log('User logged in!')
+
+                                    })
+                            })
+                        });
+                }
             },
             logout() {
 
             },
             user() {
-
+                
             },
             search(params) {
 
@@ -47,8 +64,10 @@ let controllers = {
             productById(params) {
 
             }
+
         };
+
     }
 };
 
-// export {controllers}
+ //export {controllers}

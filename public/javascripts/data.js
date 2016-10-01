@@ -34,6 +34,7 @@ var dataService = {
                         'Authorization': `Basic ${encodedAppKey}`
                     }
 
+                
                 return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/`, user, headers);
             },
 

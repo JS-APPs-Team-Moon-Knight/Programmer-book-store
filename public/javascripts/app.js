@@ -25,7 +25,6 @@ router
     .on("/checkout", controller.checkout)
     .on("/about", controller.about)
     .on("/contacts", controller.contacts)
-
     .on("/home", () => {
         router.navigate("/products");
     })
@@ -36,7 +35,3 @@ router
         router.navigate("/products");
     })
     .resolve();
-
-templateInstance.compile('temp', {user: "Pesho"}).then(compiledHtml => {
-    console.log(compiledHtml);
-});

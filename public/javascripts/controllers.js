@@ -67,13 +67,12 @@ let controllers = {
                                 .then(function () {
                                     console.log('User registered!');
                                     toastr.success('User registered')
-                                }).catch(err=> {
+                                })
+                                .catch(err=> {
                                 console.log(err)
-                            })
-                        })
-
-                    })
-
+                            });
+                        });
+                    });
             },
             logout() {
 

@@ -15,6 +15,7 @@ let controller = controllers.getInstance(dataServiceInstance, templateInstance);
 router
     .on('products', controller.home)
     .on("login", controller.login)
+    .on('register', controller.register)
     .on("logout", controller.logout)
     .on("user", controller.user)
     .on("cart", controller.cart)

@@ -179,3 +179,53 @@ class User {
         }
     }
 }
+class Author {
+    constructor(name,description) {
+        this.name=name;
+        this.description=description;
+        this._books=[];
+    }
+    get name() {
+        return this._name;
+    }
+    set name(name) {
+        if(typeof name !=="string") {
+            throw new Error("Name must be a string.");
+        }
+        this._name=name;
+    }
+    get description() {
+        return this._description;
+    }
+    set description(description) {
+        if(typeof description !=="string") {
+            throw new Error("Description must be a string.");
+        }
+        if(description.length <=10 && description.length >50) {
+            throw new Error("Description must be between 10 and 50 symbols long.");
+        }
+        this._description=description;
+    }
+    get books() {
+        return this._books;
+    }
+    set books(value) {
+        throw new Error("Books cannot be changed.Use add remove or removeAll methods instead.");
+    }
+    add(book) {
+        if(!(book instanceof Book)) {
+            throw new Error("Only books can be added.");
+        }
+        else this.books.push(book);
+    }
+    remove(book) {
+        var index = this.books.indexOf(book);
+        if(index < 0) {
+            throw new Error("Book not found.");
+        }
+        this.books.splice(index,1);
+    }
+    removeAll() {
+        this._books = [];
+    }
+}

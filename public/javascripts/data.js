@@ -60,7 +60,6 @@ var dataService = {
                     localStorage.removeItem(KEY_STORAGE_AUTH_KEY);
                     localStorage.removeItem(CURRENT_USER_ID);
                 });
-
         }
 
         function isLoggedIn() {
@@ -88,7 +87,7 @@ var dataService = {
         }
 
         function addToCart(book) {
-            getCart()
+            return getCart()
                 .then(((cart) => {
                     cart.push(book);
                     let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
@@ -104,7 +103,7 @@ var dataService = {
         }
 
         function removeFromCart(book) {
-            getCart()
+            return getCart()
                 .then(((cart) => {
                     for (let i = 0; i < cart.length; i += 1) {
                         if (book._id == cart[i]._id) {
@@ -185,8 +184,7 @@ var dataService = {
                 .then(response => {
                     response.forEach(book => {
                         cachedBooks[book._id] = new Book(book.title, book.author, book.category, book.imgUrl, book.price, book.pages, book.description);
-                    })
-                    console.log(cachedBooks);
+                    });
                     return cachedBooks;
                 });
         }

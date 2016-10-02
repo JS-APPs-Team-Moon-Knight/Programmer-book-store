@@ -1,3 +1,7 @@
 .cart img{
     max-height: 200px;
 }
+
+.hidden {
+    display: none;
+}

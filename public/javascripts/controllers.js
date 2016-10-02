@@ -12,7 +12,24 @@ let controllers = {
             $mainContainer.html(html);
         }
 
+        function _toggleButtonsIfLoggedIn() {
+            dataService.isLoggedIn().then(isLoggedIn => {
+                if (isLoggedIn) {
+                    $("#logged-in").removeClass('hidden');
+                    $("#logged-out").addClass('hidden');
+                }
+                else {
+                    $("#logged-in").addClass('hidden');
+                    $("#logged-out").removeClass('hidden');
+                }
+            });
+        }
+
+        _toggleButtonsIfLoggedIn();
+
         function home() {
+            _toggleButtonsIfLoggedIn();
+
             templates.compile('products').then(html => {
                 _changePageHtml(html);
             });
@@ -33,6 +50,7 @@ let controllers = {
         function cart() {
             dataService.getCart()
                 .then(booksInCart => {
+                    console.log(booksInCart);
                     var totalPrice = 0;
                     booksInCart.forEach(book => {
                         totalPrice += book._price;
@@ -109,8 +127,10 @@ let controllers = {
                             password: $('#tb-password').val(),
                             email: $('#tb-email').val(),
                             phone: $('#tb-phone').val(),
-                            address: $('#tb-address').val()
+                            address: $('#tb-address').val(),
+                            books: []
                         };
+
                         dataService.register(user)
                             .then(function () {
                                 console.log('User registered!');
@@ -194,7 +214,10 @@ let controllers = {
                     _changePageHtml(html);
                     $('#btn-add-to-cart').on('click', () => {
                         if (dataService.isLoggedIn()) {
-                            dataService.addToCart(targetBook);
+                            dataService.addToCart(targetBook)
+                                .catch(err => {
+                                    toastr.error(err.responseJSON.description + ". Please log in!")
+                                });
                         }
                         else {
                             throw new Error('You must be logged in to add a book to the cart!')

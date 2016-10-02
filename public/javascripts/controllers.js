@@ -51,7 +51,6 @@ let controllers = {
             var totalPrice = 0;
             dataService.getCart()
                 .then(booksInCart => {
-                    console.log(booksInCart);
                     booksInCart.forEach(book => {
                         totalPrice += book._price;
                     });

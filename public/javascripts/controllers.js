@@ -163,6 +163,7 @@ let controllers = {
             dataService.getAllBooks()
                 .then((booksObj) => {
                     let filteredBooks = [];
+                    let label = decodeURI(params.category);
                     if (params.category == 'all-categories') {
                         for (let bookID in booksObj) {
                             filteredBooks.push(booksObj[bookID])
@@ -171,7 +172,7 @@ let controllers = {
                     }
                     else {
                         for (let bookID in booksObj) {
-                            if (booksObj[bookID].category.toLowerCase() == params.category) {
+                            if (booksObj[bookID].category.toLowerCase() == label.toLowerCase()) {
                                 filteredBooks.push(booksObj[bookID])
                                 filteredBooks[filteredBooks.length - 1]._id = bookID;
                             }
@@ -188,8 +189,8 @@ let controllers = {
                     if (params.category == 'all-categories') {
                         books.sectionCategory = 'All Categories';
                     }
-                    else {
-                        books.sectionCategory = params.category.substr(0, 1).toUpperCase() + params.category.substr(1);
+                    else {                        
+                        books.sectionCategory = label.substr(0, 1).toUpperCase() + label.substr(1);
                     }
 
                     return templates.compile('category', books);

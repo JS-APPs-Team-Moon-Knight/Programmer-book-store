@@ -37,7 +37,7 @@ let controllers = {
                     booksInCart.forEach(book => {
                         totalPrice += book._price;
                     });
-
+                    
                     var data = {};
                     if(booksInCart.length > 0) {
                         totalPrice = Math.round(totalPrice * 100) / 100;

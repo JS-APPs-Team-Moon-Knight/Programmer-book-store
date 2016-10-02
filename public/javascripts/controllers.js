@@ -103,13 +103,67 @@ let controllers = {
 
             },
             categories(params) {
+                dataService.getAllBooks()
+                    .then((booksObj) => {
+                        let filteredBooks = [];
+                        if (params.category == 'all-categories') {
+                            for (let bookID in booksObj) {
+                                filteredBooks.push(booksObj[bookID])
+                                filteredBooks[filteredBooks.length - 1]._id = bookID;
+                            }
+                        }
+                        else {
+                            for (let bookID in booksObj) {
+                                if (booksObj[bookID].category.toLowerCase() == params.category) {
+                                    filteredBooks.push(booksObj[bookID])
+                                    filteredBooks[filteredBooks.length - 1]._id = bookID;
+                                }
+                            }
+                        }
 
+                        let books = {};
+                        if (filteredBooks.length > 0) {
+                            books = {
+                                books: filteredBooks
+                            }
+                        }
+
+                        if (params.category == 'all-categories') {
+                            books.sectionCategory = 'All Categories';
+                        }
+                        else {
+                            books.sectionCategory = params.category.substr(0, 1).toUpperCase() + params.category.substr(1);
+                        }
+
+                        return templates.compile('category', books);
+                    })
+                    .then((html) => {
+                        _changePageHtml(html);
+                    })
+                    .catch(console.log);
             },
             checkout() {
 
             },
             productById(params) {
-
+                let targetBook;
+                dataService.getBookById(params.id)
+                    .then((book) => {
+                        targetBook = book;
+                        return templates.compile('book-instance', book);
+                    })
+                    .then((html) => {
+                        _changePageHtml(html);
+                        $('#btn-add-to-cart').on('click', () => {
+                            if (dataService.isLoggedIn()) {
+                                dataService.addToCart(targetBook);
+                            }
+                            else {
+                                throw new Error('You must be logged in to add a book to the cart!')
+                            }
+                        })
+                    })
+                    .catch(console.log)
             },
             about() {
                 templates.compile('about').then(html => {

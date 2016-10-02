@@ -74,7 +74,7 @@
                 <li>
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input id="search-bar" type="text" class="form-control" placeholder="Search...">
+                            <input id="search-bar" type="text" class="form-control" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder ='Search...'"/>
                         </div>
                     </form>
                 </li>
@@ -93,7 +93,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading"><strong>Book Store APP</strong> | <em>by Team Moon Knight</em></div>
         <div class="panel-body">
-            <ul class="pagination">
+            <ul class="list-inline">
                 <li><a class="btn btn-block btn-social btn-twitter"
                        href="https://twitter.com/intent/tweet?text=Hello%20world">
                     <span class="fa fa-twitter"></span> Share status to Twitter</a></li>

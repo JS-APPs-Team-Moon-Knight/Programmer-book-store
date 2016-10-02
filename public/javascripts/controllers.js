@@ -52,10 +52,22 @@ let controllers = {
                     _changePageHtml(html);
 
                     $('.remove-from-cart').click((ev) => {
-                        var bookId = $(ev.target).attr('data-id');
+                        var bookId = $(ev.target).attr('data-book-id');
                         productById({id: bookId}).then(book => {
                             dataService.removeFromCart(book);
                         })
+                    });
+
+                    $('#checkout-btn').click((ev) => {
+                        dataService.placeOrder()
+                            .then(() => {
+                                //TODO: Empty user cart
+                                toastr.success("Order has been successfully placed!");
+                                $(location).attr('href', '#/products');
+                            })
+                            .catch(err => {
+                                toastr.error(err.responseJSON.description);
+                            });
                     });
                 });
         }

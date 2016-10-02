@@ -4,7 +4,8 @@ const expect = chai.expect;
 var Book = require('../public/javascripts/models').Book;
 
 describe("Book tests", function () {
-    it('Expect Book constructor to be a function.', function () {
+    it('Expect Book constructor to exist and be a function.', function () {
+        expect(Book).to.exist;
         expect(Book).to.be.a('function');
     });
 

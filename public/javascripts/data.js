@@ -160,7 +160,6 @@ var dataService = {
                     'Authorization': `Basic ${encodedAppKey}`
                 };
 
-
             return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, headers)
                 .then(response => {
                     response.forEach(book => {
@@ -187,6 +186,23 @@ var dataService = {
             }
         }
 
+        function placeOrder() {
+            return getCart().then(cart => {
+                console.log(cart);
+                let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
+                    body = {
+                        userId: localStorage.getItem(CURRENT_USER_ID),
+                        books: cart
+                    },
+                    headers = {
+                        'Authorization': `Basic ${encodedAppKey}`
+                    };
+
+                return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/orders`, body, headers);
+            })
+
+        }
+
         return {
             login,
             register,
@@ -199,7 +215,8 @@ var dataService = {
             createBookInstance,
             updateBookInstance,
             getAllBooks,
-            getBookById
+            getBookById,
+            placeOrder
         }
     }
 };

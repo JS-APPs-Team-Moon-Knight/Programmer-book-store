@@ -23,7 +23,7 @@
                         <td><span class="cart-table-cell">{{author}}</span></td>
                         <td><span class="cart-table-cell">{{price}} BGN</span></td>
                         <td><span class="cart-table-cell"><em>Up to 3 days</em></span></td>
-                        <td class="vert-align"><button type="button" class="btn btn-block btn-danger remove-from-cart" data-id="{{_id}}">Remove</button></td>
+                        <td class="vert-align"><button type="button" class="btn btn-block btn-danger remove-from-cart" data-book-id="{{_id}}">Remove</button></td>
                     </tr>
                 {{/books}}
                 </tbody></table>
@@ -36,12 +36,32 @@
     </div>
     <div class="row" style="margin-bottom: 3em;">
         <div class="col-lg-4 col-lg-offset-8">
-            <a id="checkout-button" class="btn btn-default inline" href="#">Checkout</a>
+            <button id="checkout-button" class="btn btn-default inline" data-toggle="modal" data-target="#checkout-modal">Checkout</button>
         </div>
     </div>
 
     <div class="row" style="margin-bottom: 3em;">
         <div class="col-lg-4 col-lg-offset-8">
             <a class="btn btn-success inline" href="#products">Continue shopping</a>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="checkout-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Order</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to place your order?</p>
+                    <p>Total: {{totalPrice}} BGN</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="checkout-btn" type="button" class="btn btn-success" data-dismiss="modal">Place order</button>
+                </div>
+            </div>
+
         </div>
     </div>

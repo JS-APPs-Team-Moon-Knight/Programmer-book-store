@@ -157,7 +157,7 @@ let controllers = {
 
             Promise.all([dataService.getCurrentUserData(), dataService.getOrdersByUserId()])
                 .then(values => {
-                        userData = values[0],
+                    userData = values[0],
                         orderData = values[1];
                     return {user: userData, orders: orderData}
                 })
@@ -170,11 +170,9 @@ let controllers = {
                     $('#submit-user-data').click(ev => {
                         var $form = $('#profile-form')[0];
                         if (!$form.checkValidity || $form.checkValidity()) {
-                            let newAddress = $('#user-address-input').val(),
-                                newPhone = $('#user-phone-input').val();
-                            userData.address = newAddress;
-                            userData.phone = newPhone;
-
+                            userData.address = $('#user-address-input').val();
+                            userData.phone = $('#user-phone-input').val();
+                            console.log(userData);
                             dataService.updateUserData(userData).then(() => {
                                 $(location).attr('href', '#/products');
                                 toastr.success('Your profile information has been updated!');
@@ -234,10 +232,6 @@ let controllers = {
                 });
         }
 
-        function checkout() {
-
-        }
-
         function productById(params) {
             let targetBook;
             dataService.getBookById(params.id)
@@ -285,7 +279,6 @@ let controllers = {
             profile,
             search,
             categories,
-            checkout,
             productById,
             about,
             contacts

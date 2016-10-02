@@ -36,4 +36,4 @@ Every user can have a private profile by Sign Up functionality.
   * Registered application at Telerik Academy Showcase System - <a href="#">Showcase System Programmer bookstore</a>
   * Link for the GitHub repository of our SPA - <a href="https://github.com/JS-APPs-Team-Moon-Knight/Programmer-book-store">Programmer bookstore GitHub repository</a>
   * Link to the video - <a href="#">Programmer bookstore video</a>
-  * Hosted application on a server, link - <a href="#https://programmer-bookstore.herokuapp.com/index.html#/products">Programmer bookstore hosted on Heroku</a>
+  * Hosted application on a server, link - <a href="https://programmer-bookstore.herokuapp.com/index.html#/products">Programmer bookstore hosted on Heroku</a>

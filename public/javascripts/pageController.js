@@ -71,15 +71,15 @@ let pageController = {
         }
 
         function getAuthors() {
-            //TODO: user requester object
+            //TODO: use requester object
 
-            // return new Promise((resolve, reject) => {
-            //     $.ajax({
-            //         url: url,
-            //         type: "GET",
-            //         contentType: "application/json"
-            //     }).done(resolve).fail(reject)
-            // });
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    contentType: "application/json"
+                }).done(resolve).fail(reject)
+            });
         }
 
         function search(params) {

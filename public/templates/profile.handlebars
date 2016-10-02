@@ -1,33 +1,33 @@
 {{#user}}
-<form class="form-horizontal" id="profile-form">
-    <fieldset>
-        <legend>{{username}}'s profile</legend>
-        <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-            <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputEmail" value="{{email}}" disabled>
+    <form class="form-horizontal" id="profile-form">
+        <fieldset>
+            <legend>{{username}}'s profile</legend>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputEmail" value="{{email}}" disabled>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="user-address-input" class="col-lg-2 control-label">Address</label>
-            <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="user-address-input" required>{{address}}</textarea>
+            <div class="form-group">
+                <label for="user-address-input" class="col-lg-2 control-label">Address</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" rows="3" id="user-address-input" required>{{address}}</textarea>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="user-phone-input" class="col-lg-2 control-label">Phone number</label>
-            <div class="col-lg-10">
-                <input type="number" class="form-control" id="user-phone-input" value="{{phone}}" required>
+            <div class="form-group">
+                <label for="user-phone-input" class="col-lg-2 control-label">Phone number</label>
+                <div class="col-lg-10">
+                    <input type="number" class="form-control" id="user-phone-input" value="{{phone}}" required>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-10 col-lg-offset-2">
-                <a type="reset" class="btn btn-default" href="#/">Cancel</a>
-                <button id="submit-user-data" type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <a type="reset" class="btn btn-default" href="#/">Cancel</a>
+                    <button id="submit-user-data" type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
-        </div>
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
 {{/user}}
 <div class="row">
     <div class="col-md-10 col-lg-offset-1">

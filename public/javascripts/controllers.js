@@ -111,6 +111,7 @@ let controllers = {
                             })
                             .catch(err => {
                                 toastr.error(err.responseJSON.description);
+                                $(location).attr('href', '#/register')
                             });
                     });
                 });

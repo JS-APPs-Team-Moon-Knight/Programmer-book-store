@@ -22,8 +22,8 @@ router
     .on("/cart", userControllerInstance.cart)
     .on("/search/:productName", pageControllerInstance.search)
     .on("/products/:category", pageControllerInstance.categories)
-    .on("/authors", pageControllerInstance.authors)
     .on("/products/review/:id", pageControllerInstance.productById)
+    .on("/authors", pageControllerInstance.authors)
     .on("/about", pageControllerInstance.about)
     .on("/contacts", pageControllerInstance.contacts)
     .on("/home", () => {

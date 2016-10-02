@@ -23,12 +23,13 @@
 ###Programmer bookstore
 
 We designed and implemented an object-oriented web __SPA__. Our project is a page with the goal of providing a user experience similar to that of a bookstore desktop application. All necessary code – __HTML5__, __JavaScript__, and __CSS3__ – is retrieved with a single page load.
-Programmer bookstore was developed with __jQuery__, __Handlebars__, __SammyJS__ and __Twitter Bootstrap__ for our UI design. We implemented __OOP design__ as our application logic using objects, modules, and __ES2015__ classes. Used web data storage - backend with __Node.js__ and local storage – __localStorage__. Our SPA uses third-party API to share status to Facebook, Google+, Twitter, etc. Our application work correctly in all latest versions of the browsers: Google Chrome, Mozilla Firefox, MS Edge, Internet Explorer 10/11, Opera and Apple Safari etc. 
+Programmer bookstore was developed with __jQuery__, __Handlebars__, __Navigo__ and __Twitter Bootstrap__ for our UI design. We implemented __OOP design__ as our application logic using objects, modules, and __ES2015__ classes. It uses web data storage - backend with __Kinvey REST API__ and __localStorage__. Our SPA uses third-party API to share a book to Facebook.
 
-* Used __GIT__ as source control system. Hosted it on __GitHub__ on link: <a href="https://github.com/JS-APPs-Team-Moon-Knight/Programmer-book-store">Programmer bookstore</a>
+* Used __GIT__ as source control system. 
+* Hosted on __Heroku__: <a href="https://programmer-bookstore.herokuapp.com/">Programmer bookstore</a>
 
 
-The application is specific store for programmers. The users can find the best resources for learning and development of new skills such as books and latest courses for each programming language.  
+The application is a specific store for programmers. The users can find the best resources for learning and development of new skills such as books and latest courses for each programming language.  
 Every user can have a private profile by Sign Up functionality. 
 
 ###Deliverables

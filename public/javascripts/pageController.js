@@ -189,7 +189,7 @@ let pageController = {
                     })
                 })
                 .catch(err => {
-                    toastr.err(err);
+                    toastr.error(err);
                 })
         }
 

@@ -112,7 +112,6 @@ var dataService = {
                             break;
                         }
                     }
-                    // console.log(cart);
                     let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
                         body = {
                             books: cart
@@ -123,6 +122,28 @@ var dataService = {
 
                     return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
                 }));
+        }
+
+        function clearCart() {
+            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
+
+                headers = {
+                    'Authorization': `Basic ${encodedAppKey}`
+                };
+
+            return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers)
+                .then(response => {
+                    console.log(response);
+                    var body = {
+                        books: [],
+                        username: response.username,
+                        address: response.address,
+                        phone: response.phone,
+                        email: response.email
+                    };
+
+                    return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+                });
         }
 
         function createBookInstance(book) {
@@ -160,7 +181,6 @@ var dataService = {
                     'Authorization': `Basic ${encodedAppKey}`
                 };
 
-
             return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, headers)
                 .then(response => {
                     response.forEach(book => {
@@ -187,6 +207,21 @@ var dataService = {
             }
         }
 
+        function placeOrder() {
+            return getCart().then(cart => {
+                let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
+                    body = {
+                        userId: localStorage.getItem(CURRENT_USER_ID),
+                        books: cart
+                    },
+                    headers = {
+                        'Authorization': `Basic ${encodedAppKey}`
+                    };
+
+                return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/orders`, body, headers);
+            });
+        }
+
         return {
             login,
             register,
@@ -199,7 +234,9 @@ var dataService = {
             createBookInstance,
             updateBookInstance,
             getAllBooks,
-            getBookById
+            getBookById,
+            placeOrder,
+            clearCart
         }
     }
 };

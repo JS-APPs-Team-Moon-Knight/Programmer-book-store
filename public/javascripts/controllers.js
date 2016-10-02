@@ -46,16 +46,38 @@ let controllers = {
                     booksInCart.forEach(book => {
                         totalPrice += book.price;
                     });
-                    return templates.compile('cart', {books: booksInCart, totalPrice: totalPrice});
+
+                    var data = {};
+                    if(booksInCart.length > 0) {
+                        data ={
+                            books: booksInCart,
+                            totalPrice: totalPrice
+                        }
+                    }
+                    return templates.compile('cart', data);
                 })
                 .then((html) => {
                     _changePageHtml(html);
 
                     $('.remove-from-cart').click((ev) => {
-                        var bookId = $(ev.target).attr('data-id');
+                        var bookId = $(ev.target).attr('data-book-id');
                         productById({id: bookId}).then(book => {
                             dataService.removeFromCart(book);
                         })
+                    });
+
+                    $('#checkout-btn').click((ev) => {
+                        dataService.placeOrder()
+                            .then(() => {
+                                toastr.success("Order has been successfully placed!");
+                                return dataService.clearCart();
+                            })
+                            .then(() => {
+                                $(location).attr('href', '#/products');
+                            })
+                            .catch(err => {
+                                toastr.error(err.responseJSON.description);
+                            });
                     });
                 });
         }
@@ -73,7 +95,7 @@ let controllers = {
                         dataService.login(user)
                             .then(function () {
                                 toastr.success('User Logged in!');
-                                $(location).attr('href', '#/products')
+                                $(location).attr('href', '#/products');
                             })
                             .catch(err => {
                                 toastr.error(err.responseJSON.description);

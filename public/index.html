@@ -38,7 +38,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Books
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#/products/all-categories" />All Categories</a></li>
+                        <li><a href="#/products/all-categories"/>All Categories</a></li>
                         <li><a href="#/products/JavaScript"/>JavaScript</a></li>
                         <li><a href="#/products/c#">C#</a></li>
                         <li><a href="#/products/c++">C++</a></li>
@@ -70,11 +70,13 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input id="search-bar" type="text" class="form-control" placeholder="Search...">
-                    </div>
-                </form></li>
+                <li>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input id="search-bar" type="text" class="form-control" placeholder="Search...">
+                        </div>
+                    </form>
+                </li>
                 <li><a id="btn-search" class="pointer"><img src="images/search_wht.PNG"/></a></li>
             </ul>
         </div>
@@ -82,16 +84,26 @@
 </nav>
 
 <div class="container text-center" id="container">
-    
-</div><br>
+
+</div>
+<br>
 
 <footer class="container-fluid text-center">
     <div class="panel panel-primary">
         <div class="panel-heading"><strong>Book Store APP</strong> | <em>by Team Moon Knight</em></em></div>
         <div class="panel-body">
-        <a class="btn btn-block btn-social btn-twitter" href="https://twitter.com/intent/tweet?text=Hello%20world">
-            <span class="fa fa-twitter"></span> Share status to Twitter
-        </a>
+
+            <ul class="pagination">
+                <li><a class="btn btn-block btn-social btn-twitter"
+                       href="https://twitter.com/intent/tweet?text=Hello%20world">
+                    <span class="fa fa-twitter"></span> Share status to Twitter</a></li>
+
+                <li><a class="btn btn-block btn-social btn-facebook" href="https://www.facebook.com/">
+                    <span class="fa fa-facebook"></span> Share status to Facebook</a></li>
+
+                <li><a class="btn btn-block btn-social btn-yahoo" href="https://www.linkedin.com/">
+                    <span class="fa fa-yahoo"></span> Share status to LinkedIN</a></li>
+            </ul>
         </div>
     </div>
 </footer>

@@ -71,7 +71,7 @@ let pageController = {
         }
 
         function getAuthors() {
-            //TODO: use requester object
+            //TODO: use requester object & move to data.js
 
             return new Promise((resolve, reject) => {
                 $.ajax({

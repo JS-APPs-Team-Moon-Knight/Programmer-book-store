@@ -80,8 +80,8 @@ let userController = {
 
                     $('#btn-login').on('click', function () {
                         var user = {
-                            username: $('#tb-username').val(),
-                            password: $('#tb-password').val()
+                            username: $('#tb-username').val().trim(),
+                            password: $('#tb-password').val().trim()
                         };
                         dataService.login(user)
                             .then(function () {
@@ -90,7 +90,8 @@ let userController = {
                             })
                             .catch(err => {
                                 toastr.error(err.responseJSON.description);
-                                $(location).attr('href', '#/register')
+                                $('#tb-username').val('');
+                                $('#tb-password').val(''); 
                             });
                     });
                 });
@@ -139,7 +140,7 @@ let userController = {
                 .then(values => {
                     userData = values[0],
                         orderData = values[1];
-                    return {user: userData, orders: orderData}
+                    return { user: userData, orders: orderData }
                 })
                 .then(data => {
                     return templates.compile('profile', data);

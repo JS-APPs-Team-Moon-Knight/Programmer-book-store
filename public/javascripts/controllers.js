@@ -46,7 +46,15 @@ let controllers = {
                     booksInCart.forEach(book => {
                         totalPrice += book.price;
                     });
-                    return templates.compile('cart', {books: booksInCart, totalPrice: totalPrice});
+
+                    var body = {};
+                    if(booksInCart.length > 0) {
+                        body ={
+                            books: booksInCart,
+                            totalPrice: totalPrice
+                        }
+                    }
+                    return templates.compile('cart', body);
                 })
                 .then((html) => {
                     _changePageHtml(html);
@@ -63,6 +71,9 @@ let controllers = {
                             .then(() => {
                                 //TODO: Empty user cart
                                 toastr.success("Order has been successfully placed!");
+                                return dataService.clearCart();
+                            })
+                            .then(() => {
                                 $(location).attr('href', '#/products');
                             })
                             .catch(err => {
@@ -85,7 +96,7 @@ let controllers = {
                         dataService.login(user)
                             .then(function () {
                                 toastr.success('User Logged in!');
-                                $(location).attr('href', '#/products')
+                                $(location).attr('href', '#/products');
                             })
                             .catch(err => {
                                 toastr.error(err.responseJSON.description);

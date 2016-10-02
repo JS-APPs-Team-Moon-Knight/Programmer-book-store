@@ -112,7 +112,6 @@ var dataService = {
                             break;
                         }
                     }
-                    // console.log(cart);
                     let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
                         body = {
                             books: cart
@@ -123,6 +122,18 @@ var dataService = {
 
                     return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
                 }));
+        }
+
+        function clearCart() {
+            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
+                body = {
+                    books: []
+                },
+                headers = {
+                    'Authorization': `Basic ${encodedAppKey}`
+                };
+
+            return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
         }
 
         function createBookInstance(book) {
@@ -188,7 +199,6 @@ var dataService = {
 
         function placeOrder() {
             return getCart().then(cart => {
-                console.log(cart);
                 let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
                     body = {
                         userId: localStorage.getItem(CURRENT_USER_ID),
@@ -199,8 +209,7 @@ var dataService = {
                     };
 
                 return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/orders`, body, headers);
-            })
-
+            });
         }
 
         return {
@@ -216,7 +225,8 @@ var dataService = {
             updateBookInstance,
             getAllBooks,
             getBookById,
-            placeOrder
+            placeOrder,
+            clearCart
         }
     }
 };

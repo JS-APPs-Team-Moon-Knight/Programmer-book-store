@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Programmer book store</title>
+    <title>Programmer bookstore</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./stylesheets/dist/bootstrap.css" media="screen">
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <link rel="stylesheet" href="./stylesheets/main.css">
-
+    <link rel="stylesheet" href="./stylesheets/social-buttons.css">
     <link rel="stylesheet" href="bower_components/toastr/toastr.css">
     <!--<link rel="stylesheet" href="./javascripts/custom.min.css">-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,6 +39,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#/products/all-categories"/>All Categories</a></li>
+                        <li class="divider"></li>
                         <li><a href="#/products/JavaScript"/>JavaScript</a></li>
                         <li><a href="#/products/c#">C#</a></li>
                         <li><a href="#/products/c++">C++</a></li>
@@ -74,7 +75,7 @@
                 <li>
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input id="search-bar" type="text" class="form-control" placeholder="Search...">
+                            <input id="search-bar" type="text" class="form-control" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder ='Search...'"/>
                         </div>
                     </form>
                 </li>
@@ -91,19 +92,21 @@
 
 <footer class="container-fluid text-center">
     <div class="panel panel-primary">
-        <div class="panel-heading"><strong>Book Store APP</strong> | <em>by Team Moon Knight</em></em></div>
+        <div class="panel-heading"><strong>Book Store APP</strong> | <em>by Team Moon Knight</em></div>
         <div class="panel-body">
-
-            <ul class="pagination">
-                <li><a class="btn btn-block btn-social btn-twitter"
-                       href="https://twitter.com/intent/tweet?text=Hello%20world">
-                    <span class="fa fa-twitter"></span> Share status to Twitter</a></li>
-
-                <li><a class="btn btn-block btn-social btn-facebook" href="https://www.facebook.com/">
-                    <span class="fa fa-facebook"></span> Share status to Facebook</a></li>
-
-                <li><a class="btn btn-block btn-social btn-yahoo" href="https://www.linkedin.com/">
-                    <span class="fa fa-yahoo"></span> Share status to LinkedIN</a></li>
+            <ul class="list-inline">
+                <li><a href="https://twitter.com/intent/tweet?text=Hello%20world">
+                    <button class="btn btn-twitter"><i class="fa fa-twitter"></i> | Share to Twitter</button>
+                </a>
+                </li>
+                <li><a href="https://www.facebook.com/">
+                    <button class="btn btn-facebook"><i class="fa fa-facebook"></i> | Share to Facebook</button></a>
+                </a>
+                </li>
+                <li><a href="https://www.linkedin.com/">
+                    <button class="btn btn-linkedin"><i class="fa fa-linkedin"></i> | Share to Linkedin</button>
+                </a>
+                </li>
             </ul>
         </div>
     </div>

@@ -17,7 +17,7 @@ router
     .on("/login", controller.login)
     .on('/register', controller.register)
     .on("/logout", controller.logout)
-    .on("/user", controller.user)
+    .on("/profile", controller.profile)
     .on("/cart", controller.cart)
     .on("/search/:productName", controller.search)
     .on("/products/:category", controller.categories)

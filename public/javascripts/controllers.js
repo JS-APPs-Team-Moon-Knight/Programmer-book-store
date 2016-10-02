@@ -48,10 +48,10 @@ let controllers = {
         }
 
         function cart() {
+            var totalPrice = 0;
             dataService.getCart()
                 .then(booksInCart => {
                     console.log(booksInCart);
-                    var totalPrice = 0;
                     booksInCart.forEach(book => {
                         totalPrice += book._price;
                     });
@@ -79,7 +79,7 @@ let controllers = {
                     });
 
                     $('#checkout-btn').click((ev) => {
-                        dataService.placeOrder()
+                        dataService.placeOrder(totalPrice)
                             .then(() => {
                                 toastr.success("Order has been successfully placed!");
                                 return dataService.clearCart();
@@ -144,15 +144,29 @@ let controllers = {
         }
 
         function logout() {
-            dataService.logout(user)
+            dataService.logout()
                 .then(function () {
                     toastr.success('User Logged out!')
                     $(location).attr('href', '#/products')
                 });
         }
 
-        function user() {
-
+        function profile() {
+            Promise.all([dataService.getCurrentUserData(), dataService.getOrdersByUserId()])
+                .then(values => {
+                    let userData = values[0],
+                        orderData = values[1];
+                    return {user: userData, orders: orderData}
+                })
+                .then(data => {
+                    return templates.compile('profile', data);
+                })
+                .catch(err => {
+                    toastr.error(err.responseJSON.description);
+                })
+                .then(html => {
+                    _changePageHtml(html);
+                });
         }
 
         function search(params) {
@@ -189,7 +203,7 @@ let controllers = {
                     if (params.category == 'all-categories') {
                         books.sectionCategory = 'All Categories';
                     }
-                    else {                        
+                    else {
                         books.sectionCategory = label.substr(0, 1).toUpperCase() + label.substr(1);
                     }
 
@@ -225,7 +239,9 @@ let controllers = {
                         }
                     })
                 })
-                .catch(console.log)
+                .catch(err => {
+                    toastr.err(err);
+                })
         }
 
         function about() {
@@ -246,7 +262,7 @@ let controllers = {
             login,
             register,
             logout,
-            user,
+            profile,
             search,
             categories,
             checkout,

@@ -152,20 +152,40 @@ let controllers = {
         }
 
         function profile() {
+            let userData,
+                orderData;
+
             Promise.all([dataService.getCurrentUserData(), dataService.getOrdersByUserId()])
                 .then(values => {
-                    let userData = values[0],
+                        userData = values[0],
                         orderData = values[1];
                     return {user: userData, orders: orderData}
                 })
                 .then(data => {
                     return templates.compile('profile', data);
                 })
-                .catch(err => {
-                    toastr.error(err.responseJSON.description);
-                })
                 .then(html => {
                     _changePageHtml(html);
+
+                    $('#submit-user-data').click(ev => {
+                        var $form = $('#profile-form')[0];
+                        if (!$form.checkValidity || $form.checkValidity()) {
+                            let newAddress = $('#user-address-input').val(),
+                                newPhone = $('#user-phone-input').val();
+                            userData.address = newAddress;
+                            userData.phone = newPhone;
+
+                            dataService.updateUserData(userData).then(() => {
+                                $(location).attr('href', '#/products');
+                                toastr.success('Your profile information has been updated!');
+                            }).catch(err => {
+                                toastr.error(err.responseJSON.description);
+                            })
+                        }
+                    });
+                })
+                .catch(err => {
+                    toastr.error(err.responseJSON.description);
                 });
         }
 

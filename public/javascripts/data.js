@@ -239,6 +239,14 @@ var dataService = {
             return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers);
         }
 
+        function updateUserData(body) {
+            let headers = {
+                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+            };
+            console.log(body);
+            return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+        }
+
         return {
             login,
             register,
@@ -255,7 +263,8 @@ var dataService = {
             placeOrder,
             clearCart,
             getCurrentUserData,
-            getOrdersByUserId
+            getOrdersByUserId,
+            updateUserData
         }
     }
 };

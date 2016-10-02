@@ -1,7 +1,7 @@
 /* globals dataService templates $ Handlebars console */
 "use strict";
-let controllers = {
-    getInstance(dataService, templates) {
+let userController = {
+    getInstance(dataService, templates, $) {
         var $mainContainer = $('#container');
 
         if ($mainContainer.length < 1) {
@@ -26,26 +26,6 @@ let controllers = {
         }
 
         _toggleButtonsIfLoggedIn();
-
-        function home() {
-            _toggleButtonsIfLoggedIn();
-
-            templates.compile('products').then(html => {
-                _changePageHtml(html);
-            });
-
-            dataService.getAllBooks()
-                .then((booksCollection) => {
-                    let booksObject = {
-                        books: booksCollection
-                    };
-
-                    return templates.compile('products', booksObject);
-                })
-                .then((html) => {
-                    _changePageHtml(html);
-                });
-        }
 
         function cart() {
             var totalPrice = 0;
@@ -187,140 +167,12 @@ let controllers = {
                 });
         }
 
-        function search(params) {
-            dataService.getAllBooks()
-                .then((booksObj) => {
-                    let tempBooks = [],
-                        searchPattern = decodeURI(params.productName).toLowerCase();
-
-                    for (let bookID in booksObj) {
-                        tempBooks.push(booksObj[bookID])
-                        tempBooks[tempBooks.length - 1]._id = bookID;
-                    }
-
-                    let filteredBooks = [];
-                    for (let book of tempBooks) {
-                        if (book.title.toLowerCase().indexOf(searchPattern) > 0 || 
-                            book.author.toLowerCase().indexOf(searchPattern) > 0 ||
-                            book.category.toLowerCase().indexOf(searchPattern) > 0 ||
-                            book.description.toLowerCase().indexOf(searchPattern) > 0) {
-                            filteredBooks.push(book);
-                        }
-                    }
-
-                    console.log(tempBooks);
-                    console.log(filteredBooks);
-
-                    let body = {
-                        searchValue: decodeURI(params.productName)
-                    };
-                    if (filteredBooks.length > 0) {
-                        body.books = filteredBooks;
-                    }
-
-                    return templates.compile('search', body);
-                })
-                .then((html) => {
-                    _changePageHtml(html);
-                });
-        }
-
-        function categories(params) {
-            dataService.getAllBooks()
-                .then((booksObj) => {
-                    let filteredBooks = [];
-                    let label = decodeURI(params.category);
-                    if (params.category == 'all-categories') {
-                        for (let bookID in booksObj) {
-                            filteredBooks.push(booksObj[bookID])
-                            filteredBooks[filteredBooks.length - 1]._id = bookID;
-                        }
-                    }
-                    else {
-                        for (let bookID in booksObj) {
-                            if (booksObj[bookID].category.toLowerCase() == label.toLowerCase()) {
-                                filteredBooks.push(booksObj[bookID])
-                                filteredBooks[filteredBooks.length - 1]._id = bookID;
-                            }
-                        }
-                    }
-
-                    let books = {};
-                    if (filteredBooks.length > 0) {
-                        books = {
-                            books: filteredBooks
-                        }
-                    }
-
-                    if (params.category == 'all-categories') {
-                        books.sectionCategory = 'All Categories';
-                    }
-                    else {
-                        books.sectionCategory = label.substr(0, 1).toUpperCase() + label.substr(1);
-                    }
-
-                    return templates.compile('category', books);
-                })
-                .then((html) => {
-                    _changePageHtml(html);
-                });
-        }
-
-        function productById(params) {
-            let targetBook;
-            dataService.getBookById(params.id)
-                .then((book) => {
-                    targetBook = book;
-                    return templates.compile('book-instance', book);
-                })
-                .then((html) => {
-                    _changePageHtml(html);
-                    $('#btn-add-to-cart').on('click', () => {
-                        if (dataService.isLoggedIn()) {
-                            dataService.addToCart(targetBook)
-                                .then((res, err) => {
-                                    if (!err) {
-                                        toastr.success('Book added to cart!')
-                                    }
-                                })
-                                .catch(err => {
-                                    toastr.error(err.responseJSON.description + ". Please log in!")
-                                });
-                        }
-                        else {
-                            throw new Error('You must be logged in to add a book to the cart!')
-                        }
-                    })
-                })
-                .catch(err => {
-                    toastr.err(err);
-                })
-        }
-
-        function about() {
-            templates.compile('about').then(html => {
-                _changePageHtml(html);
-            });
-        }
-
-        function contacts() {
-            templates.compile('contacts').then(html => {
-                _changePageHtml(html);
-            });
-        }
-
         return {
-            home,
-            cart,
             login,
             register,
             logout,
             profile,
-            search,
-            categories,
-            productById,
-            about,
-            contacts
+            cart
         };
     }
 };

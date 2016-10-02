@@ -1,10 +1,7 @@
 /* globals requester localStorage */
 "use strict";
-// import {requester} from 'requester';
-
 var dataService = {
     getInstance(requester) {
-
         const HTTP_HEADER_KEY = "x-auth-key",
             KEY_STORAGE_USERNAME = "username",
             KEY_STORAGE_AUTH_KEY = "authKey",
@@ -12,6 +9,7 @@ var dataService = {
             BOOKS_COLLECTION_ID = "booksID",
             APP_ID = "kid_SkGEDPt6",
             APP_SECRET = "1ddc36c888904211906588c736731c4d",
+            //TODO: Remove in production
             APP_MASTER_KEY = "2c9b407d779742d18a5e4afef9700855";
 
         var cachedBooks = {};
@@ -98,8 +96,6 @@ var dataService = {
                                 email: response.email
                             };
                             return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
-                        }).then(() => {
-                            toastr.success("Book has been added to cart!")
                         });
                 }));
         }
@@ -270,5 +266,3 @@ var dataService = {
         }
     }
 };
-
-// export {dataService}

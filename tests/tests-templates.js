@@ -30,7 +30,7 @@ describe("Templates tests", function () {
         }
     })();
 
-    const templates = require('../public/javascripts/templates')(mockedRequester, Handlebars);
+    const templates = require('../public/javascripts/templates').getInstance(mockedRequester, Handlebars);
 
     it('Expect compile to exist and be a function.', function () {
         expect(templates.compile).to.exist;
@@ -68,8 +68,8 @@ describe("Templates tests", function () {
 
     it('Expect compile to have correct output when caching.', function (done) {
         const expected = "<template>Pesho</template>";
-        templates.compile('templateName', {user: "Pesho"});
 
+        templates.compile('templateName', {user: "Pesho"});
         templates.compile('templateName', {user: "Pesho"})
             .then((result) => {
                     expect(result).to.equal(expected);

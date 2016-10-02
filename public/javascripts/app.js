@@ -6,24 +6,26 @@
 // import {requester} from 'requester';
 
 let requesterInstance = requester.getInstance($);
-let templateInstance = templates(requesterInstance, Handlebars);
+let templateInstance = templates.getInstance(requesterInstance, Handlebars);
 let dataServiceInstance = dataService.getInstance(requesterInstance);
 let router = new Navigo(null, true);
 
-let controller = controllers.getInstance(dataServiceInstance, templateInstance);
+let userControllerInstance = userController.getInstance(dataServiceInstance, templateInstance, $);
+let pageControllerInstance = pageController.getInstance(dataServiceInstance, templateInstance, $);
 
 router
-    .on('/products', controller.home)
-    .on("/login", controller.login)
-    .on('/register', controller.register)
-    .on("/logout", controller.logout)
-    .on("/profile", controller.profile)
-    .on("/cart", controller.cart)
-    .on("/search/:productName", controller.search)
-    .on("/products/:category", controller.categories)
-    .on("/products/review/:id", controller.productById)
-    .on("/about", controller.about)
-    .on("/contacts", controller.contacts)
+    .on('/products', pageControllerInstance.home)
+    .on("/login", userControllerInstance.login)
+    .on('/register', userControllerInstance.register)
+    .on("/logout", userControllerInstance.logout)
+    .on("/profile", userControllerInstance.profile)
+    .on("/cart", userControllerInstance.cart)
+    .on("/search/:productName", pageControllerInstance.search)
+    .on("/products/:category", pageControllerInstance.categories)
+    .on("/authors", pageControllerInstance.authors)
+    .on("/products/review/:id", pageControllerInstance.productById)
+    .on("/about", pageControllerInstance.about)
+    .on("/contacts", pageControllerInstance.contacts)
     .on("/home", () => {
         router.navigate("/products");
     })

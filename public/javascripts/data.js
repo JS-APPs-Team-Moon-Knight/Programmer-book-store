@@ -186,6 +186,8 @@ var dataService = {
                     response.forEach(book => {
                         cachedBooks[book._id] = new Book(book.title, book.author, book.category, book.imgUrl, book.price, book.pages, book.description);
                     })
+
+                    return cachedBooks;
                 });
         }
 

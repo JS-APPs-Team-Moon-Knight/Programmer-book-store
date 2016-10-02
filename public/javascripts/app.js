@@ -21,7 +21,7 @@ router
     .on("/cart", controller.cart)
     .on("/search/:productName", controller.search)
     .on("/products/:category", controller.categories)
-    .on("/product/:id", controller.productById)
+    .on("/products/review/:id", controller.productById)
     .on("/checkout", controller.checkout)
     .on("/about", controller.about)
     .on("/contacts", controller.contacts)

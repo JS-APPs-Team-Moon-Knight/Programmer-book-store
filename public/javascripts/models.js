@@ -9,23 +9,26 @@ class Book {
         this.description = description;
     }
 
-    get title() {        
+    get title() {
         return this._title;
     }
+
     set title(value) {
-        this._tilte = value;
+        this._title = value;
     }
 
     get author() {
         return this._author;
     }
+
     set author(value) {
         this._author = value;
     }
-    
+
     get category() {
         return this._category;
     }
+
     set category(value) {
         this._category = value;
     }
@@ -33,20 +36,23 @@ class Book {
     get imgUrl() {
         return this._imgUrl;
     }
+
     set imgUrl(value) {
         this._imgUrl = value;
     }
-    
+
     get price() {
         return this._price;
     }
+
     set price(value) {
         this._price = value;
     }
-    
+
     get pages() {
         return this._pages;
     }
+
     set pages(value) {
         this._pages = value;
     }
@@ -54,6 +60,7 @@ class Book {
     get description() {
         return this._description;
     }
+
     set description(value) {
         this._description = value;
     }
@@ -73,6 +80,7 @@ class User {
     get username() {
         return this._username;
     }
+
     set username(value) {
         value = _formatInputData(value);
         if (/[^A-Za-z0-9-_.]/g.test(value)) {
@@ -85,6 +93,7 @@ class User {
     get password() {
         return this._password;
     }
+
     set password(value) {
         value = _formatInputData(value);
         this._password = value;
@@ -93,6 +102,7 @@ class User {
     get firstName() {
         return this._firstName;
     }
+
     set firstName(value) {
         value = _formatInputData(value);
         _validateName(value);
@@ -102,6 +112,7 @@ class User {
     get lastName() {
         return this._lastName;
     }
+
     set lastName(value) {
         value = _formatInputData(value);
         _validateName(value);
@@ -111,6 +122,7 @@ class User {
     get email() {
         return this._email;
     }
+
     set email(value) {
         value = _formatInputData(value);
         let pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
@@ -124,6 +136,7 @@ class User {
     get address() {
         return this._address;
     }
+
     set address(value) {
         value = _formatInputData(value);
         this._address = value;
@@ -132,6 +145,7 @@ class User {
     get phoneNumber() {
         return this._phoneNumber;
     }
+
     set phoneNumber(value) {
         value = _formatInputData(value);
 
@@ -180,52 +194,65 @@ class User {
     }
 }
 class Author {
-    constructor(name,description) {
-        this.name=name;
-        this.description=description;
-        this._books=[];
+    constructor(name, description) {
+        this.name = name;
+        this.description = description;
+        this._books = [];
     }
+
     get name() {
         return this._name;
     }
+
     set name(name) {
-        if(typeof name !=="string") {
+        if (typeof name !== "string") {
             throw new Error("Name must be a string.");
         }
-        this._name=name;
+        this._name = name;
     }
+
     get description() {
         return this._description;
     }
+
     set description(description) {
-        if(typeof description !=="string") {
+        if (typeof description !== "string") {
             throw new Error("Description must be a string.");
         }
-        if(description.length <=10 && description.length >50) {
+        if (description.length <= 10 && description.length > 50) {
             throw new Error("Description must be between 10 and 50 symbols long.");
         }
-        this._description=description;
+        this._description = description;
     }
+
     get books() {
         return this._books;
     }
+
     set books(value) {
         throw new Error("Books cannot be changed.Use add remove or removeAll methods instead.");
     }
+
     add(book) {
-        if(!(book instanceof Book)) {
+        if (!(book instanceof Book)) {
             throw new Error("Only books can be added.");
         }
         else this.books.push(book);
     }
+
     remove(book) {
         var index = this.books.indexOf(book);
-        if(index < 0) {
+        if (index < 0) {
             throw new Error("Book not found.");
         }
-        this.books.splice(index,1);
+        this.books.splice(index, 1);
     }
+
     removeAll() {
         this._books = [];
     }
+}
+
+if (typeof window === 'undefined') {
+    module.exports = {Book, User, Author}
 }

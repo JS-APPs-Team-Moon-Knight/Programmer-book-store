@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>{{sectionCategory}}</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    {{#if books}}
+    {{#books}}
+    <div class="col-md-3 text-center">
+        <a href="#/products/review/{{_id}}" class="thumbnail">
+            <img src="{{imgUrl}}" alt="book-cover">
+            <div class="caption">
+                <h3>{{title}}</h3>
+                <p>{{author}}</p>
+                <p>{{price}} BGN</p>
+            </div>
+        </a>
+    </div>
+    {{/books}}
+    {{else}}
+    <h3>No books in this category yet!</h3>
+    {{/if}}
+</div>

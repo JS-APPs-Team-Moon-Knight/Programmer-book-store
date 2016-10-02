@@ -23,7 +23,7 @@ router
     .on("/search/:productName", pageControllerInstance.search)
     .on("/products/:category", pageControllerInstance.categories)
     .on("/products/review/:id", pageControllerInstance.productById)
-    .on("/authors", pageControllerInstance.authors)
+    // .on("/authors", pageControllerInstance.authors)
     .on("/about", pageControllerInstance.about)
     .on("/contacts", pageControllerInstance.contacts)
     .on("/home", () => {

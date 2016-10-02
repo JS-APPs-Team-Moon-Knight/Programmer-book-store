@@ -44,7 +44,9 @@ var dataService = {
                     'Authorization': `Basic ${encodedAppKey}`
                 };
 
-            return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/`, user, headers);
+            return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/`, user, headers).then(res => {
+                console.log(res);
+            });
         }
 
         function logout() {
@@ -75,10 +77,9 @@ var dataService = {
         }
 
         function getCart() {
-            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                headers = {
-                    'Authorization': `Basic ${encodedAppKey}`
-                };
+            let headers = {
+                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+            };
 
             return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers)
                 .then((response) => {
@@ -90,15 +91,23 @@ var dataService = {
             return getCart()
                 .then(((cart) => {
                     cart.push(book);
-                    let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                        body = {
-                            books: cart
-                        },
-                        headers = {
-                            'Authorization': `Basic ${encodedAppKey}`
-                        };
+                    let headers = {
+                        'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+                    };
 
-                    return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+                    return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers)
+                        .then(response => {
+                            var body = {
+                                books: cart,
+                                username: response.username,
+                                address: response.address,
+                                phone: response.phone,
+                                email: response.email
+                            };
+                            return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+                        }).then(() => {
+                            toastr.success("Book has been added to cart!")
+                        });
                 }));
         }
 
@@ -111,28 +120,31 @@ var dataService = {
                             break;
                         }
                     }
-                    let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                        body = {
-                            books: cart
-                        },
-                        headers = {
-                            'Authorization': `Basic ${encodedAppKey}`
-                        };
+                    let headers = {
+                        'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+                    };
 
-                    return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+                    return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers)
+                        .then(response => {
+                            var body = {
+                                books: cart,
+                                username: response.username,
+                                address: response.address,
+                                phone: response.phone,
+                                email: response.email
+                            };
+                            return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+                        });
                 }));
         }
 
         function clearCart() {
-            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-
-                headers = {
-                    'Authorization': `Basic ${encodedAppKey}`
-                };
+            let headers = {
+                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+            };
 
             return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers)
                 .then(response => {
-                    console.log(response);
                     var body = {
                         books: [],
                         username: response.username,
@@ -175,10 +187,9 @@ var dataService = {
         }
 
         function getAllBooks() {
-            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                headers = {
-                    'Authorization': `Basic ${encodedAppKey}`
-                };
+            let headers = {
+                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+            };
 
             return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, headers)
                 .then(response => {
@@ -194,10 +205,9 @@ var dataService = {
                 return Promise.resolve(cachedBooks[id]);
             }
             else {
-                let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                    headers = {
-                        'Authorization': `Basic ${encodedAppKey}`
-                    };
+                let headers = {
+                    'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+                };
 
                 return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${id}`, headers)
                     .then(book => {
@@ -207,19 +217,43 @@ var dataService = {
             }
         }
 
-        function placeOrder() {
+        function placeOrder(totalPrice) {
             return getCart().then(cart => {
-                let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                    body = {
+                let body = {
                         userId: localStorage.getItem(CURRENT_USER_ID),
-                        books: cart
+                        books: cart,
+                        status: "open",
+                        totalPrice: totalPrice
                     },
                     headers = {
-                        'Authorization': `Basic ${encodedAppKey}`
+                        'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
                     };
 
                 return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/orders`, body, headers);
             });
+        }
+
+        function getOrdersByUserId() {
+            let headers = {
+                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+            };
+
+            return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/orders/?query={"userId":"${localStorage.getItem(CURRENT_USER_ID)}"}`, headers);
+        }
+
+        function getCurrentUserData() {
+            let headers = {
+                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+            };
+
+            return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers);
+        }
+
+        function updateUserData(body) {
+            let headers = {
+                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
+            };
+            return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
         }
 
         return {
@@ -236,7 +270,10 @@ var dataService = {
             getAllBooks,
             getBookById,
             placeOrder,
-            clearCart
+            clearCart,
+            getCurrentUserData,
+            getOrdersByUserId,
+            updateUserData
         }
     }
 };

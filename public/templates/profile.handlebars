@@ -1,0 +1,56 @@
+{{#user}}
+<form class="form-horizontal" id="profile-form">
+    <fieldset>
+        <legend>{{username}}'s profile</legend>
+        <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputEmail" value="{{email}}" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user-address-input" class="col-lg-2 control-label">Address</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="user-address-input" required>{{address}}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user-phone-input" class="col-lg-2 control-label">Phone number</label>
+            <div class="col-lg-10">
+                <input type="number" class="form-control" id="user-phone-input" value="{{phone}}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <a type="reset" class="btn btn-default" href="#/">Cancel</a>
+                <button id="submit-user-data" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{{/user}}
+<div class="row">
+    <div class="col-md-10 col-lg-offset-1">
+        <h2 class="heading-section">Your orders:</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-lg-offset-1">
+        <table class="table table-hover table-striped table-responsive cart text-left">
+            <tbody>
+            <tr class="text-center">
+                <th>Products</th>
+                <th>Total Price</th>
+                <th>Status</th>
+            </tr>
+            {{#orders}}
+                <tr>
+                    <td>{{#books}}{{_title}}, {{/books}}</td>
+                    <td><span class="cart-table-cell">{{totalPrice}}</span></td>
+                    <td><span class="cart-table-cell">{{status}}</span></td>
+                </tr>
+            {{/orders}}
+            </tbody>
+        </table>
+    </div>
+</div>

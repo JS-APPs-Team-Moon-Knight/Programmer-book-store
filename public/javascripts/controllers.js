@@ -48,10 +48,9 @@ let controllers = {
         }
 
         function cart() {
+            var totalPrice = 0;
             dataService.getCart()
                 .then(booksInCart => {
-                    console.log(booksInCart);
-                    var totalPrice = 0;
                     booksInCart.forEach(book => {
                         totalPrice += book._price;
                     });
@@ -79,7 +78,7 @@ let controllers = {
                     });
 
                     $('#checkout-btn').click((ev) => {
-                        dataService.placeOrder()
+                        dataService.placeOrder(totalPrice)
                             .then(() => {
                                 toastr.success("Order has been successfully placed!");
                                 return dataService.clearCart();
@@ -145,15 +144,47 @@ let controllers = {
         }
 
         function logout() {
-            dataService.logout(user)
+            dataService.logout()
                 .then(function () {
                     toastr.success('User Logged out!')
                     $(location).attr('href', '#/products')
                 });
         }
 
-        function user() {
+        function profile() {
+            let userData,
+                orderData;
 
+            Promise.all([dataService.getCurrentUserData(), dataService.getOrdersByUserId()])
+                .then(values => {
+                    userData = values[0],
+                        orderData = values[1];
+                    return {user: userData, orders: orderData}
+                })
+                .then(data => {
+                    return templates.compile('profile', data);
+                })
+                .then(html => {
+                    _changePageHtml(html);
+
+                    $('#submit-user-data').click(ev => {
+                        var $form = $('#profile-form')[0];
+                        if (!$form.checkValidity || $form.checkValidity()) {
+                            userData.address = $('#user-address-input').val();
+                            userData.phone = $('#user-phone-input').val();
+                            console.log(userData);
+                            dataService.updateUserData(userData).then(() => {
+                                $(location).attr('href', '#/products');
+                                toastr.success('Your profile information has been updated!');
+                            }).catch(err => {
+                                toastr.error(err.responseJSON.description);
+                            })
+                        }
+                    });
+                })
+                .catch(err => {
+                    toastr.error(err.responseJSON.description);
+                });
         }
 
         function search(params) {
@@ -235,10 +266,6 @@ let controllers = {
                 });
         }
 
-        function checkout() {
-
-        }
-
         function productById(params) {
             let targetBook;
             dataService.getBookById(params.id)
@@ -265,7 +292,9 @@ let controllers = {
                         }
                     })
                 })
-                .catch(console.log)
+                .catch(err => {
+                    toastr.err(err);
+                })
         }
 
         function about() {
@@ -286,10 +315,9 @@ let controllers = {
             login,
             register,
             logout,
-            user,
+            profile,
             search,
             categories,
-            checkout,
             productById,
             about,
             contacts

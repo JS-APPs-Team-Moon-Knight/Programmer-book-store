@@ -44,9 +44,7 @@ var dataService = {
                     'Authorization': `Basic ${encodedAppKey}`
                 };
 
-            return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/`, user, headers).then(res => {
-                console.log(res);
-            });
+            return requester.postJSON(`https://baas.kinvey.com/user/${APP_ID}/`, user, headers);
         }
 
         function logout() {
@@ -69,11 +67,6 @@ var dataService = {
                 .then(() => {
                     return !!localStorage.getItem(KEY_STORAGE_USERNAME);
                 });
-        }
-
-        function search(options) {
-            // TODO:
-            // return requester.getJSON("api/search", options);
         }
 
         function getCart() {
@@ -187,9 +180,10 @@ var dataService = {
         }
 
         function getAllBooks() {
-            let headers = {
-                'Authorization': `Kinvey ${localStorage.getItem(KEY_STORAGE_AUTH_KEY)}`
-            };
+            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
+                headers = {
+                    'Authorization': `Basic ${encodedAppKey}`
+                };
 
             return requester.getJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, headers)
                 .then(response => {
@@ -261,7 +255,6 @@ var dataService = {
             register,
             logout,
             isLoggedIn,
-            search,
             getCart,
             addToCart,
             removeFromCart,

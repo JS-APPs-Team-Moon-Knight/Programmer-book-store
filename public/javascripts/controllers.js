@@ -37,9 +37,9 @@ let controllers = {
                     booksInCart.forEach(book => {
                         totalPrice += book._price;
                     });
-                    
+
                     var data = {};
-                    if(booksInCart.length > 0) {
+                    if (booksInCart.length > 0) {
                         totalPrice = Math.round(totalPrice * 100) / 100;
                         data = {
                             books: booksInCart,
@@ -54,7 +54,9 @@ let controllers = {
                     $('.remove-from-cart').click((ev) => {
                         var bookId = $(ev.target).attr('data-book-id');
                         dataService.getBookById(bookId).then(book => {
-                            dataService.removeFromCart(book);
+                            return dataService.removeFromCart(book);
+                        }).then(() => {
+                            cart();
                         })
                     });
 
@@ -122,7 +124,11 @@ let controllers = {
         }
 
         function logout() {
-
+            dataService.logout(user)
+                .then(function () {
+                    toastr.success('User Logged out!')
+                    $(location).attr('href', '#/products')
+                });
         }
 
         function user() {

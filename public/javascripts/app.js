@@ -22,6 +22,7 @@ router
     .on("/search/:productName", controller.search)
     .on("/products/:category", controller.categories)
     .on("/products/review/:id", controller.productById)
+    .on("/authors",controller.authors)
     .on("/about", controller.about)
     .on("/contacts", controller.contacts)
     .on("/home", () => {

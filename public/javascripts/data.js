@@ -103,6 +103,17 @@ var dataService = {
                         });
                 }));
         }
+        function getAuthors() {
+            return new Promise((resolve,reject) => {
+                $.ajax({
+                    url:url,
+                    type:"GET",
+                    contentType:"application/json"
+                }).
+                done(resolve).
+                fail(reject)
+            });
+        }
 
         function removeFromCart(book) {
             return getCart()

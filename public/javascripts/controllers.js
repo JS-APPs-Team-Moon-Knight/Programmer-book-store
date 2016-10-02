@@ -90,7 +90,8 @@ let controllers = {
             logout() {
                 dataService.logout(user)
                     .then(function () {
-                        toastr.success('User Logged out!')
+                        console.log('User logged out!');
+                        toastr.success('User Logged out!');
                         $(location).attr('href', '#/products')
                     })
 

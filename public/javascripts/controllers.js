@@ -188,7 +188,41 @@ let controllers = {
         }
 
         function search(params) {
+            dataService.getAllBooks()
+                .then((booksObj) => {
+                    let tempBooks = [],
+                        searchPattern = decodeURI(params.productName).toLowerCase();
 
+                    for (let bookID in booksObj) {
+                        tempBooks.push(booksObj[bookID])
+                        tempBooks[tempBooks.length - 1]._id = bookID;
+                    }
+
+                    let filteredBooks = [];
+                    for (let book of tempBooks) {
+                        if (book.title.toLowerCase().indexOf(searchPattern) > 0 || 
+                            book.author.toLowerCase().indexOf(searchPattern) > 0 ||
+                            book.category.toLowerCase().indexOf(searchPattern) > 0 ||
+                            book.description.toLowerCase().indexOf(searchPattern) > 0) {
+                            filteredBooks.push(book);
+                        }
+                    }
+
+                    console.log(tempBooks);
+                    console.log(filteredBooks);
+
+                    let body = {
+                        searchValue: decodeURI(params.productName)
+                    };
+                    if (filteredBooks.length > 0) {
+                        body.books = filteredBooks;
+                    }
+
+                    return templates.compile('search', body);
+                })
+                .then((html) => {
+                    _changePageHtml(html);
+                });
         }
 
         function categories(params) {
@@ -244,6 +278,11 @@ let controllers = {
                     $('#btn-add-to-cart').on('click', () => {
                         if (dataService.isLoggedIn()) {
                             dataService.addToCart(targetBook)
+                                .then((res, err) => {
+                                    if (!err) {
+                                        toastr.success('Book added to cart!')
+                                    }
+                                })
                                 .catch(err => {
                                     toastr.error(err.responseJSON.description + ". Please log in!")
                                 });

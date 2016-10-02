@@ -34,3 +34,13 @@ router
         router.navigate("/products");
     })
     .resolve();
+
+$('#btn-search').on('click', () => {
+    let searchBar = $('#search-bar'),
+        searchValue = encodeURI(searchBar.val().trim());
+        if (!searchValue) {
+            return;
+        }
+        router.navigate(`/search/${searchValue}`)    
+        searchBar.val('');  
+})

@@ -1,5 +1,9 @@
 /* globals dataService templates $ Handlebars console */
 "use strict";
+var user={
+    username: $('#tb-username').val(),
+    password: $('#tb-password').val()
+};
 let controllers = {
     getInstance(dataService, templates) {
         return {
@@ -55,6 +59,7 @@ let controllers = {
                         });
                     });
             },
+
             register(){
                 templates.compile('register')
                     .then(function (template) {
@@ -72,17 +77,22 @@ let controllers = {
                             dataService.register(user)
                                 .then(function () {
                                     console.log('User registered!');
-                                    toastr.success('User registered')
+                                    toastr.success('User registered');
+                                    $(location).attr('href', '#/login')
                                 })
                                 .catch(err=> {
-                                console.log(err)
+                                    console.log(err)
 
-                            });
+                                });
                         });
                     });
             },
             logout() {
-                
+                dataService.logout(user)
+                    .then(function () {
+                        toastr.success('User Logged out!')
+                        $(location).attr('href', '#/products')
+                    })
 
             },
             user() {

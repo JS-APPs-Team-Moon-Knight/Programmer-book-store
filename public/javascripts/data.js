@@ -126,14 +126,24 @@ var dataService = {
 
         function clearCart() {
             let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                body = {
-                    books: []
-                },
+
                 headers = {
                     'Authorization': `Basic ${encodedAppKey}`
                 };
 
-            return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+            return requester.getJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, headers)
+                .then(response => {
+                    console.log(response);
+                    var body = {
+                        books: [],
+                        username: response.username,
+                        address: response.address,
+                        phone: response.phone,
+                        email: response.email
+                    };
+
+                    return requester.putJSON(`https://baas.kinvey.com/user/${APP_ID}/${localStorage.getItem(CURRENT_USER_ID)}`, body, headers);
+                });
         }
 
         function createBookInstance(book) {

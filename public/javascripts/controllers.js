@@ -47,14 +47,14 @@ let controllers = {
                         totalPrice += book.price;
                     });
 
-                    var body = {};
+                    var data = {};
                     if(booksInCart.length > 0) {
-                        body ={
+                        data ={
                             books: booksInCart,
                             totalPrice: totalPrice
                         }
                     }
-                    return templates.compile('cart', body);
+                    return templates.compile('cart', data);
                 })
                 .then((html) => {
                     _changePageHtml(html);
@@ -69,7 +69,6 @@ let controllers = {
                     $('#checkout-btn').click((ev) => {
                         dataService.placeOrder()
                             .then(() => {
-                                //TODO: Empty user cart
                                 toastr.success("Order has been successfully placed!");
                                 return dataService.clearCart();
                             })

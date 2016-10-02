@@ -15,3 +15,25 @@
 |Велин Йорданов |__VelinYordanov__    	|	
 |Спас Стоимиров |__sstoimirov__            	|			
 |Ния Керанова|__Nayata__       	|	
+
+##<a href="https://github.com/JS-APPs-Team-Moon-Knight/Programmer-book-store/blob/master/Description.md">Project Requirements</a>  
+
+##Project Description
+
+###Programmer bookstore
+
+We designed and implemented an object-oriented web __SPA__. Our project is a page with the goal of providing a user experience similar to that of a bookstore desktop application. All necessary code – __HTML5__, __JavaScript__, and __CSS3__ – is retrieved with a single page load.
+Programmer bookstore was developed with __jQuery__, __Handlebars__, __SammyJS__ and __Twitter Bootstrap__ for our UI design. We implemented __OOP design__ as our application logic using objects, modules, and __ES2015__ classes. Used web data storage - backend with __Node.js__ and local storage – __localStorage__. Our SPA uses third-party API to share status to Facebook, Google+, Twitter, etc. Our application work correctly in all latest versions of the browsers: Google Chrome, Mozilla Firefox, MS Edge, Internet Explorer 10/11, Opera and Apple Safari etc. 
+
+* Used __GIT__ as source control system. Hosted it on __GitHub__ on link: <a href="https://github.com/JS-APPs-Team-Moon-Knight/Programmer-book-store">Programmer bookstore</a>
+
+
+The application is specific store for programmers. The users can find the best resources for learning and development of new skills such as books and latest courses for each programming language.  
+Every user can have a private profile by Sign Up functionality. 
+
+###Deliverables
+  * Record a short video showcasing your application - <a href="#">Programmer bookstore video</a>
+  * Registered application at Telerik Academy Showcase System - <a href="#">Showcase System Programmer bookstore</a>
+  * Link for the GitHub repository of our SPA - <a href="https://github.com/JS-APPs-Team-Moon-Knight/Programmer-book-store">Programmer bookstore GitHub repository</a>
+  * Link to the video - <a href="#">Programmer bookstore video</a>
+  * Hosted application on a server, link - <a href="#">Programmer bookstore server link</a>

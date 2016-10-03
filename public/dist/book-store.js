@@ -937,9 +937,9 @@ let userController = {
                     _changePageHtml(html);
 
                     $('#btn-register').on('click', function (ev) {
-                        ev.preventDefault();
-                        ev.stopPropagation();
                         if (!$('#register-form')[0].checkValidity || $('#register-form')[0].checkValidity()) {
+                            ev.preventDefault();
+                            ev.stopPropagation();
                             var user = {
                                 username: $('#tb-username').val(),
                                 password: $('#tb-password').val(),

@@ -33,8 +33,8 @@ The application is a specific store for programmers. The users can find the best
 The SPA have navigation Home/Books/Courses/About/Contacts. Every user can have a private profile by Sign Up - Log in/Log out functionality. Have the option to research, add do cart and buy books. If the user like some book, can share it on Facebook. The APP provide an option to have access to the most popular sites for online programmer courses like Pluralsight, Codeschool etc. Our application uses third-party API to Share status to Facebook, Linkedin, Twitter, etc...
 
 ###Deliverables
-  * Record a short video showcasing your application - <a href="#">Programmer bookstore video</a>
-  * Registered application at Telerik Academy Showcase System - <a href="#">Showcase System Programmer bookstore</a>
+  * Record a short video showcasing your application - <a href="http://screencast.com/t/JG0b2HULez9">Programmer bookstore video</a>
+  * Registered application at Telerik Academy Showcase System - <a href="http://best.telerikacademy.com/projects/357/Programmer-bookstore">Showcase System Programmer bookstore</a>
   * Link for the GitHub repository of our SPA - <a href="https://github.com/JS-APPs-Team-Moon-Knight/Programmer-book-store">Programmer bookstore GitHub repository</a>
-  * Link to the video - <a href="#">Programmer bookstore video</a>
+  * Link to the presentation - <a href="https://prezi.com/1x-6lsnp9_zm/programmer-bookstore/">Programmer bookstore video</a>
   * Hosted application on a server, link - <a href="https://programmer-bookstore.herokuapp.com/index.html#/products">Programmer bookstore hosted on Heroku</a>

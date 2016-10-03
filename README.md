@@ -29,8 +29,8 @@ Programmer bookstore was developed with __jQuery__, __Handlebars__, __Navigo__ a
 * Hosted on __Heroku__: <a href="https://programmer-bookstore.herokuapp.com/">Programmer bookstore</a>
 
 
-The application is a specific store for programmers. The users can find the best resources for learning and development of new skills such as books and latest courses for each programming language.  
-Every user can have a private profile by Sign Up functionality. 
+The application is a specific store for programmers. The users can find the best resources for learning and development of new skills such as books and latest courses for each programming language. 
+The SPA have navigation Home/Books/Courses/About/Contacts. Every user can have a private profile by Sign Up - Log in/Log out functionality. Have the option to research, add do cart and buy books. If the user like some book, can share it on Facebook. The APP provide an option to have access to the most popular sites for online programmer courses like Pluralsight, Codeschool etc. Our application uses third-party API to Share status to Facebook, Linkedin, Twitter, etc...
 
 ###Deliverables
   * Record a short video showcasing your application - <a href="#">Programmer bookstore video</a>

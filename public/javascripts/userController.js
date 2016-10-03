@@ -91,7 +91,7 @@ let userController = {
                             .catch(err => {
                                 toastr.error(err.responseJSON.description);
                                 $('#tb-username').val('');
-                                $('#tb-password').val(''); 
+                                $('#tb-password').val('');
                             });
                     });
                 });
@@ -102,24 +102,31 @@ let userController = {
                 .then(function (html) {
                     _changePageHtml(html);
 
-                    $('#btn-register').on('click', function () {
-                        var user = {
-                            username: $('#tb-username').val(),
-                            password: $('#tb-password').val(),
-                            email: $('#tb-email').val(),
-                            phone: $('#tb-phone').val(),
-                            address: $('#tb-address').val(),
-                            books: []
-                        };
+                    $('#btn-register').on('click', function (ev) {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        if (!$('#register-form')[0].checkValidity || $('#register-form')[0].checkValidity()) {
+                            var user = {
+                                username: $('#tb-username').val(),
+                                password: $('#tb-password').val(),
+                                email: $('#tb-email').val(),
+                                phone: $('#tb-phone').val(),
+                                address: $('#tb-address').val(),
+                                books: []
+                            };
 
-                        dataService.register(user)
-                            .then(function () {
-                                console.log('User registered!');
-                                toastr.success('User registered')
-                            })
-                            .catch(err => {
-                                toastr.error(err.responseJSON.description);
-                            });
+                            dataService.register(user)
+                                .then(function () {
+                                    toastr.success('User registered!');
+                                    $(location).attr('href', '#/login');
+                                })
+                                .catch(err => {
+                                    toastr.error(err.responseJSON.description);
+                                });
+                        }
+                        else {
+                            toastr.error("Please fill out all fields correctly!")
+                        }
                     });
                 });
         }
@@ -140,7 +147,7 @@ let userController = {
                 .then(values => {
                     userData = values[0],
                         orderData = values[1];
-                    return { user: userData, orders: orderData }
+                    return {user: userData, orders: orderData}
                 })
                 .then(data => {
                     return templates.compile('profile', data);
@@ -153,7 +160,7 @@ let userController = {
                         if (!$form.checkValidity || $form.checkValidity()) {
                             userData.address = $('#user-address-input').val();
                             userData.phone = $('#user-phone-input').val();
-                            console.log(userData);
+
                             dataService.updateUserData(userData).then(() => {
                                 $(location).attr('href', '#/products');
                                 toastr.success('Your profile information has been updated!');

@@ -6,11 +6,9 @@ var dataService = {
             KEY_STORAGE_USERNAME = "username",
             KEY_STORAGE_AUTH_KEY = "authKey",
             CURRENT_USER_ID = "userID",
-            BOOKS_COLLECTION_ID = "booksID",
             APP_ID = "kid_SkGEDPt6",
             APP_SECRET = "1ddc36c888904211906588c736731c4d",
-            //TODO: Remove in production
-            APP_MASTER_KEY = "2c9b407d779742d18a5e4afef9700855";
+            APP_KEY = "2c9b407d779742d18a5e4afef9700855";
 
         var cachedBooks = {};
 
@@ -99,17 +97,6 @@ var dataService = {
                         });
                 }));
         }
-        function getAuthors() {
-            return new Promise((resolve,reject) => {
-                $.ajax({
-                    url:url,
-                    type:"GET",
-                    contentType:"application/json"
-                }).
-                done(resolve).
-                fail(reject)
-            });
-        }
 
         function removeFromCart(book) {
             return getCart()
@@ -157,37 +144,8 @@ var dataService = {
                 });
         }
 
-        function createBookInstance(book) {
-            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                body = book,
-                headers = {
-                    'Authorization': `Basic ${encodedAppKey}`
-                };
-
-            _cacheBook(book);
-
-            return requester.postJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase`, body, headers)
-                .catch(() => {
-                    _unCacheBook(body)
-                });
-        }
-
-        function updateBookInstance(id, body) {
-            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
-                headers = {
-                    'Authorization': `Basic ${encodedAppKey}`
-                };
-
-            _cacheBook(body);
-
-            return requester.putJSON(`https://baas.kinvey.com/appdata/${APP_ID}/booksDataBase/${id}`, body, headers)
-                .catch(() => {
-                    _unCacheBook(body)
-                });
-        }
-
         function getAllBooks() {
-            let encodedAppKey = btoa(`${APP_ID}:${APP_MASTER_KEY}`),
+            let encodedAppKey = btoa(`${APP_ID}:${APP_KEY}`),
                 headers = {
                     'Authorization': `Basic ${encodedAppKey}`
                 };
@@ -265,8 +223,6 @@ var dataService = {
             getCart,
             addToCart,
             removeFromCart,
-            createBookInstance,
-            updateBookInstance,
             getAllBooks,
             getBookById,
             placeOrder,
